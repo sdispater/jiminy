@@ -1,0 +1,50 @@
+<template name="showsItem">
+    <div class="row">
+        <div class="next-air col-md-1 col-xs-1">
+            <div class="value">
+                31
+            </div>
+            <div class="units uppercase">
+                Oct
+            </div>
+        </div>
+        <div class="col-md-2 col-xs-3">
+            <img class="shows-poster" src="images/posters/poster-{{external_id}}.jpg" />
+        </div>
+        <div class="col-md-9 col-xs-8">
+            <div class="row">
+                <div class="col-md-10 col-xs-10">
+                    <h3>{{name}}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <p class="shows-overview">
+                        {{overview}}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <span class="label label-info">
+                        {{day_of_week}}
+                    </span>
+                    <span class="label label-primary">
+                        Season 4
+                    </span>
+                    <span class="label label-default">
+                        HD - All
+                    </span>
+                </div>
+                <div class="col-md-2">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info" role="progressbar"
+                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="30" style="width: 66%;">
+                            20 / 30
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

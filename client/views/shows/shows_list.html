@@ -1,0 +1,26 @@
+<template name="showsList">
+    <div id="shows" class="col-md-12">
+        <div class="title col-md-12">
+            <h2 class="pull-left">Shows</h2>
+            <div class="toolbar pull-right">
+                <div class="btn-group btn-group-collapse">
+                    <div class="btn btn-default">
+                        <i class="fa fa-plus"></i>
+                        Add Show
+                    </div>
+                    <div class="btn btn-default">
+                        <i class="fa fa-refresh"></i>
+                        Update
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul id="shows-list">
+        {{#each shows}}
+            <li class="shows-item">
+                {{> showsItem}}
+            </li>
+        {{/each}}
+        </ul>
+    </div>
+</template>
