@@ -8,7 +8,7 @@ if (Shows.find().count() === 0) {
         status: 'Continuing',
         overview: "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.",
         updated_at: new Date().getTime()
-    })
+    });
     hannibalId = Shows.insert({
         name: 'Hannibal',
         external_id: 259063,
@@ -18,5 +18,14 @@ if (Shows.find().count() === 0) {
         status: 'Continuing',
         overview: "Explores the early relationship between the renowned psychiatrist and his patient, a young FBI criminal profiler, who is haunted by his ability to empathize with serial killers.",
         updated_at: new Date().getTime()
-    })
+    });
+}
+
+if (Meteor.Trakt().collection.find().count() === 0) {
+    Meteor.Trakt().collection.insert({
+        name: 'configuration',
+        options: {
+            apikey: '3904338dc9a5dca533acc58d81cbffa5'
+        }
+    });
 }

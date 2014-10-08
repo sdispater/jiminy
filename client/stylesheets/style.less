@@ -21,7 +21,6 @@ a, a:link, a:visited {
 
 header.navbar {
   position: relative;
-  z-index: 5000;
   height: 60px;
   background-color: #FFF;
   border-bottom: 1px solid #E0E0E0;
@@ -86,6 +85,11 @@ header.navbar {
 
   .toolbar {
     margin-top: 10px;
+
+    .btn {
+      font-size: 12px;
+      text-transform: uppercase;
+    }
   }
 }
 
@@ -93,11 +97,14 @@ header.navbar {
   background: #FFFFFF;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
   padding: 0;
+  margin-bottom: 20px;
 }
 
 #shows-list {
   list-style: None;
   padding-left: 0;
+  clear: both;
+  margin-bottom: 0;
 
   li.shows-item {
     position:relative;
@@ -109,10 +116,60 @@ header.navbar {
       max-width: 100%;
 
       margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    h3.shows-item-title {
+      display: inline-block;
+    }
+
+    .shows-title-bar {
+      .shows-year {
+        color: #A5A5A5;
+        font-size: 28px;
+        font-weight: 300;
+        margin-top: 20px;
+        margin-left: 10px;
+        display: inline-block;
+      }
+
+      .label {
+        display: inline-block;
+        padding: 0.4em;
+        .vertical-align-negative;
+      }
     }
 
     .shows-overview {
+      clear: both;
       color: #A5A5A5;
+    }
+
+    .shows-search-labels {
+      padding-bottom: 20px;
+    }
+
+    .shows-search-options {
+      position: relative;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+      label {
+        font-weight: 400;
+      }
+
+      select {
+        font-weight: 300;
+      }
+    }
+
+    .shows-search-actions {
+      .add-button {
+        .btn {
+          margin-top: -1px;
+          border-radius: 0px 0px 3px 3px;
+          border-top: 0;
+        }
+      }
     }
 
     .next-air {
@@ -130,6 +187,10 @@ header.navbar {
         font-weight: 300;
       }
     }
+  }
+
+  li.shows-item:last-child {
+    border-bottom: 0;
   }
 }
 
@@ -173,4 +234,13 @@ header.navbar {
 .col-centered{
   float: none;
   margin: 0 auto;
+}
+
+.default-message {
+  clear: both;
+  color: #A5A5A5;
+  font-style: italic;
+  margin: auto;
+  padding: 20px 0;
+  text-align: center;
 }

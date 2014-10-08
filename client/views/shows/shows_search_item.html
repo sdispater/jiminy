@@ -1,0 +1,97 @@
+<template name="showsSearchItem">
+    <div class="row">
+        <div class="next-air col-md-1 col-xs-1">
+            <div class="value">
+                31
+            </div>
+            <div class="units uppercase">
+                Oct
+            </div>
+        </div>
+        <div class="col-md-2 col-xs-3">
+            <a href="{{url}}">
+                <img class="shows-poster" src="{{images.poster}}" />
+            </a>
+        </div>
+        <div class="col-md-9 col-xs-8">
+            <div class="row">
+                <div class="shows-title-bar col-md-10 col-xs-10">
+                    <h3 class="shows-item-title">{{title}}</h3>
+                    <span class="shows-year">({{year}})</span>
+                    <span class="label label-default">
+                        {{network}}
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <p class="shows-overview">
+                        {{overview}}
+                    </p>
+                </div>
+            </div>
+            <div class="shows-search-labels row">
+                <div class="col-md-10">
+                    {{#if air_day}}
+                    <span class="label label-info">
+                        {{air_day}}
+                    </span>
+                    {{/if}}
+                    {{#if seasonsCount}}
+                    <span class="label label-primary">
+                        {{pluralize seasonsCount "Season"}}
+                    </span>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="shows-search-options row">
+                <div class="form-group col-md-4">
+                    <label>
+                        Path
+                    </label>
+                    <select class="col-md-4 form-control">
+                        <option name="Add a different path">Add a different path</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>
+                        Starting Season
+                    </label>
+                    <select class="col-md-2 form-control">
+                        {{#each seasons}}
+                        <option name="{{season}}">Season {{season}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>
+                        Profile
+                    </label>
+                    <select class="col-md-2 form-control">
+                        <option name="sd">SD</option>
+                        <option name="hd-720">HD - 720p</option>
+                        <option name="hd-1080">HD - 1080p</option>
+                        <option name="hd-all">HD - All</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>
+                        Series Type
+                    </label>
+                    <select class="col-md-2 form-control">
+                        <option name="standard">Standard</option>
+                        <option name="daily">Daily</option>
+                        <option name="anime">Anime</option>
+                    </select>
+                </div>
+            </div>
+            <div class="shows-search-actions">
+                <div class="add-button pull-right">
+                    <div class="btn btn-primary">
+                        Add
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
