@@ -216,6 +216,22 @@ header.navbar {
   color: #FFF !important;
 }
 
+.badge-important {
+  background: #F35958;
+}
+
+.notification-toggle {
+  a {
+    z-index: 2;
+  }
+
+  .badge {
+    position: relative;
+    top: -10px;
+    right: 10px;
+  }
+}
+
 .form-control:focus {
   border-color: #36B0B7;
   outline: 0px none;
@@ -243,4 +259,9 @@ header.navbar {
   margin: auto;
   padding: 20px 0;
   text-align: center;
+}
+
+// Iron progress bar
+#iron-router-progress.spinner {
+  margin: 0;
 }

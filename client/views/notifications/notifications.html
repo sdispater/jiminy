@@ -1,0 +1,11 @@
+<template name="notificationsMenu">
+    <div class="notification-toggle">
+        <a href="#">
+            <i class="fa fa-bell">
+            </i>
+        </a>
+        {{#if unseenNotificationsCount}}
+            <span class="badge badge-important badge-xs">{{unseenNotificationsCount}}</span>
+        {{/if}}
+    </div>
+</template>

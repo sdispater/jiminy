@@ -13,6 +13,7 @@ Meteor.methods({
             return result;
         } catch (e) {
             console.log(e);
+            Meteor.call('notify', 'trakt.tv API Error (' + e.message + ')', 'error');
         }
     }
 });

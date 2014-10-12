@@ -1,3 +1,21 @@
+Messenger.options = {
+    extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
+    theme: 'flat'
+}
+
+Deps.autorun(function() {
+    Notifications.find({seen: false, created_at: {$gt: new Date().getTime()}}).observe({
+        added: function (notification) {
+            Messenger().post({
+                message: notification.message,
+                type: notification.type
+            })
+            Notifications.update(notification._id, {$set: {'seen': true}});
+        }
+    });
+});
+
+
 Meteor.Spinner.options = {
     lines: 17, // The number of lines to draw
     length: 0, // The length of each line

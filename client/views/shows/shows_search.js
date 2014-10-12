@@ -12,19 +12,13 @@ Template.showsSearch.events({
 
 Template.showsSearch.helpers({
     shows: function () {
-        try {
-            var result = Session.get('shows-search-results');
-
-            if (result == undefined) {
-                return [];
-            }
-
-            return result;
-        } catch (e) {
-            console.log(e);
+        var result = Session.get('shows-search-results');
+        if (result == undefined) {
+            return [];
         }
+        return result;
     },
-    showsLoaded: function() {
+    showsLoaded: function () {
         return Session.equals("showsLoaded", true)
     }
 })

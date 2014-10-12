@@ -1,7 +1,5 @@
 Template.showsSearchItem.helpers({
     seasonsCount: function() {
-        console.log(this);
-        console.log(this.seasons.length);
         if (!this.seasons || this.seasons.length == 0) {
             return 0;
         }
