@@ -1,11 +1,30 @@
 <template name="notificationsMenu">
     <div class="notification-toggle">
-        <a href="#">
+        <a href="#" id="popover-notifications" data-placement="bottom">
             <i class="fa fa-bell">
             </i>
         </a>
         {{#if unseenNotificationsCount}}
             <span class="badge badge-important badge-xs">{{unseenNotificationsCount}}</span>
+        {{/if}}
+    </div>
+    <div id="popover-notifications-head" class="hide">Notifications</div>
+    <div id="popover-notifications-content" class="hide">
+        {{#if notifications}}
+        <ul class="popover-notifications-list">
+            {{#each notifications}}
+            {{> popoverNotificationsItem}}
+            {{/each}}
+        </ul>
+            <div class="popover-notifications-link">
+                <a href="#">
+                    See all notifications
+                </a>
+            </div>
+        {{else}}
+        <p class="default-message">
+            No Notifications
+        </p>
         {{/if}}
     </div>
 </template>

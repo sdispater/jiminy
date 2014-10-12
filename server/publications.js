@@ -3,6 +3,10 @@ Meteor.publish('shows', function() {
 });
 
 Meteor.publish('notifications', function() {
-    return Notifications.find({seen: false});
+    return Notifications.find({}, {sort: {created_at: -1}});
+})
+
+Meteor.publish('latestNotifications', function() {
+    return Notifications.find({}, {sort: {created_at: -1}, limit: 5});
 })
 
