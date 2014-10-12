@@ -11,13 +11,13 @@
     <div id="popover-notifications-head" class="hide">Notifications</div>
     <div id="popover-notifications-content" class="hide">
         {{#if notifications}}
-        <ul class="popover-notifications-list">
+        <ul id="popover-notifications-list">
             {{#each notifications}}
             {{> popoverNotificationsItem}}
             {{/each}}
         </ul>
             <div class="popover-notifications-link">
-                <a href="#">
+                <a href="{{pathFor 'notificationsList'}}">
                     See all notifications
                 </a>
             </div>

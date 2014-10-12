@@ -1,7 +1,8 @@
-ul.popover-notifications-list {
+@import "mixins";
+
+ul#popover-notifications-list {
   list-style: none;
   padding-left: 0;
-  width: 300px;
 
   li {
     clear: both;
@@ -46,6 +47,19 @@ ul.popover-notifications-list {
         font-weight: 600;
       }
 
+      .description {
+        display: block;
+        float: left;
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-all;
+        font-size: 12px;
+        width: 100%;
+        line-height: 19px;
+      }
+
       .date {
         display: inline-block;
         font-size: 11px;
@@ -78,5 +92,81 @@ ul.popover-notifications-list {
     .icon {
       color: darken(#D9EDF1, 15%);
     }
+  }
+}
+
+ul#popover-notifications-list {
+  width: 300px;
+}
+
+ul#notifications-list {
+  clear: both;
+  list-style: none;
+  padding-left: 0;
+  padding-right: 0;
+
+  li.notifications-item > div.row:first-child {
+    margin: 0;
+  }
+
+  li.notifications-item {
+    position:relative;
+    border-bottom: 1px dotted #E0E0E0;
+
+    .icon {
+      margin-top: 2px;
+      font-size: 35px;
+      text-align: center;
+      .vertical-align;
+    }
+
+    .notifications-item-title {
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .notifications-item-time {
+      color: #A5A5A5;
+      font-size: 12px;
+      font-weight: 300;
+      margin-top: 20px;
+      margin-left: 10px;
+      display: inline-block;
+      font-style: italic;
+    }
+
+    .description {
+      clear: both;
+      color: #A5A5A5;
+      font-weight: 300;
+    }
+
+    div.info {
+      background-color: #D8EBF4;
+
+      .icon {
+        color: darken(#D8EBF4, 15%);
+      }
+    }
+
+    div.error {
+      background-color: #FEF2F2;
+
+      .icon {
+        color: darken(#FEF2F2, 15%);
+      }
+    }
+
+    div.success {
+      background-color: #D9EDF1;
+
+      .icon {
+        color: darken(#D9EDF1, 15%);
+      }
+    }
+  }
+
+  li.notifications-item:last-child {
+    border-bottom: 0;
   }
 }

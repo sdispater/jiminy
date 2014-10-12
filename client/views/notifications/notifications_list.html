@@ -1,0 +1,28 @@
+<template name="notificationsList">
+    <div id="notifications" class="content col-md-8 col-centered">
+        <div class="title col-md-12">
+            <h2 class="pull-left">Notifications</h2>
+            <div class="toolbar pull-right">
+                <div class="btn-group btn-group-collapse">
+                    <a id="trash-notifications" class="btn btn-default" data-toggle="modal">
+                        <i class="fa fa-trash"></i>
+                        Clear notifications
+                    </a>
+                </div>
+            </div>
+        </div>
+        {{#if notifications}}
+            <ul id="notifications-list" class="col-md-12 col-centered">
+                {{#each notifications}}
+                    <li class="notifications-item">
+                        {{> notificationsItem}}
+                    </li>
+                {{/each}}
+            </ul>
+        {{else}}
+            <p class="default-message">
+                No Notifications
+            </p>
+        {{/if}}
+    </div>
+</template>

@@ -6,10 +6,17 @@ Messenger.options = {
 Deps.autorun(function() {
     Notifications.find({seen: false, created_at: {$gt: new Date().getTime()}}).observe({
         added: function (notification) {
-            Messenger().post({
+            var options = {
                 message: notification.message,
                 type: notification.type
-            })
+            }
+
+            if (notification.url != undefined) {
+                options['url'] = url
+            }
+
+            Messenger().post(options);
+
             Notifications.update(notification._id, {$set: {'seen': true}});
         }
     });
