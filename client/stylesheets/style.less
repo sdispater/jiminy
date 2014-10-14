@@ -123,6 +123,11 @@ header.navbar {
 
     h3.shows-item-title {
       display: inline-block;
+
+      a, a:focus, a:visited, a:hover {
+        color: #5A5A5A;
+        text-decoration: none;
+      }
     }
 
     .shows-title-bar {
@@ -187,6 +192,23 @@ header.navbar {
       .units {
         font-size: 24px;
         font-weight: 300;
+      }
+    }
+
+    .progress {
+      position: relative;
+
+      .progress-behind {
+        position: absolute;
+        z-index: 0;
+        overflow: hidden;
+        font-size: 12px;
+        line-height: 20px;
+        height: 100%;
+      }
+
+      .progress-bar {
+        position: absolute;
       }
     }
   }

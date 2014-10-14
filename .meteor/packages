@@ -13,4 +13,11 @@ sdispater:trakt
 sacha:spin
 pcel:messenger
 mrt:moment
+vsivsi:job-collection
+http
+cfs:standard-packages
+cfs:filesystem
+cfs:ejson-file
+cfs:ui
+cfs:gridfs
 

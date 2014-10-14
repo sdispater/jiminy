@@ -12,8 +12,12 @@ Meteor.methods({
 
             return result;
         } catch (e) {
-            console.log(e);
             Meteor.call('notify', 'trakt.tv API Error (' + e.message + ')', 'error');
         }
     }
+});
+
+
+Meteor.startup(function() {
+   return Jobs.startJobs();
 });

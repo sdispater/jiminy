@@ -1,9 +1,9 @@
 Template.showsSearch.events({
    'keyup input#shows-search-field': function(e) {
        delay(function() {
-           Session.set('showsLoaded', false);
+           Session.set('showsLoading', true);
            Meteor.call('findTvShowMethod', e.target.value, true, function(e, r) {
-               Session.set('showsLoaded', true);
+               Session.set('showsLoading', false);
                Session.set('shows-search-results', r);
            });
        }, 1000);
@@ -18,7 +18,7 @@ Template.showsSearch.helpers({
         }
         return result;
     },
-    showsLoaded: function () {
-        return Session.equals("showsLoaded", true)
+    showsLoading: function () {
+        return Session.equals("showsLoading", true)
     }
 })

@@ -8,7 +8,13 @@
                 </div>
             </div>
         </div>
-        {{#if showsLoaded}}
+        {{#if showsLoading}}
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+        {{else}}
             {{#if shows}}
                 <ul id="shows-list">
                     {{#each shows}}
@@ -18,14 +24,8 @@
                     {{/each}}
                 </ul>
             {{else}}
-                <p class="default-message">Start searching shows</p>
+                <p class="default-message">Start searching shows.</p>
             {{/if}}
-        {{else}}
-            <div class="spinner">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
         {{/if}}
     </div>
 </template>

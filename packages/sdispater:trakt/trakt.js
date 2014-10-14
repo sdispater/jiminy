@@ -121,10 +121,30 @@
 
         var self = this; self.incWorkers();
         return Meteor.call("traktGetSummary", tvShowId, function(error, result) {
+            console.log(error);
             done(error, result);
             self.decWorkers();
         });
     };
+
+    Trakt.prototype.getSeasons = function(tvShowId, done) {
+        console.log(tvShowId);
+        console.log(done);
+        if (typeof done !== 'function') {
+            throw new Meteor.Error(4111, 'Missing return function');
+        }
+
+        tvShowId = parseInt(tvShowId);
+        if (tvShowId <= 0) {
+            throw new Meteor.Error(4113, 'Invalid parameter "tvShowId"');
+        }
+
+        var self = this; self.incWorkers();
+        return Meteor.call("traktGetSeasons", tvShowId, function(error, result) {
+            done(error, result);
+            self.decWorkers();
+        });
+    }
 
     /*
      * Client side functions

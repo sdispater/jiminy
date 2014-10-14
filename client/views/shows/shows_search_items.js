@@ -20,3 +20,18 @@ Template.showsSearchItem.helpers({
         });
     }
 })
+
+Template.showsSearchItem.events({
+    'click .x-add-show': function (e) {
+        var tvdbId = parseInt($(e.target).data('tvdb-id'));
+        var title = $(e.target).data('title');
+
+        if (Shows.find({'tvdb_id': tvdbId}).count() > 0) {
+            return Meteor.call('notify', 'This show already exists in your collection', 'error');
+        }
+
+        Meteor.call('createJob', 'addShow', {tvdb_id: tvdbId, title: title}, function(err) {
+           Meteor.call('notify', 'Show <strong>' + title + '</strong> added', 'success');
+        });
+    }
+});

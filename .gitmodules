@@ -1,0 +1,4 @@
+[submodule "packages/vsivsi:job-collection"]
+	path = packages/vsivsi:job-collection
+	url = https://github.com/vsivsi/meteor-job-collection.git
+	branch = meteor-0.9-package

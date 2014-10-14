@@ -22,7 +22,7 @@ Meteor.methods({
     },
     notifyError: function(error) {
         Notifications.insert({
-            message: error.message,
+            message: error.toString(),
             type: 'error',
             seen: false,
             created_at: new Date().getTime()

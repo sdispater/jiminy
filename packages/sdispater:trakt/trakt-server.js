@@ -39,6 +39,40 @@
             try {
                 return future.wait();
             } catch (err) {
+                throw err;
+            }
+        },
+        traktGetSummary: function(tvShowId) {
+            var future = new Future();
+            var options = {title: tvShowId, extended: 'extended'};
+            Meteor.Trakt().trakt.request('show', 'summary', options, function(err, show) {
+                if (err) {
+                    throw err;
+                } else {
+                    future.return(show);
+                }
+            });
+
+            try {
+                return future.wait();
+            } catch (err) {
+                throw err;
+            }
+        },
+        traktGetSeasons: function(tvShowId) {
+            var future = new Future();
+            var options = {title: tvShowId};
+            Meteor.Trakt().trakt.request('show', 'seasons', options, function(err, seasons) {
+                if (err) {
+                    future.return(new Meteor.Error(4104, err));
+                } else {
+                    future.return(seasons);
+                }
+            });
+
+            try {
+                return future.wait();
+            } catch (err) {
                 console.log(err);
 
                 return [];
