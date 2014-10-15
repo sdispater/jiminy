@@ -26,6 +26,9 @@ Template.showsItem.helpers({
         } catch (err) {
             console.log(err);
         }
+    },
+    profile: function() {
+        return Profiles.findOne(this.profile_id);
     }
 })
 
