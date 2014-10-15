@@ -34,3 +34,10 @@ UI.registerHelper('date', function(date) {
     }
     return moment(date).format('LLLL');
 });
+
+UI.registerHelper('shortDate', function(date) {
+    if (typeof date == 'number') {
+        return moment.unix(date).format('LL');
+    }
+    return moment(date).format('LL');
+});

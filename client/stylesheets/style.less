@@ -1,5 +1,6 @@
 @import "mixins.import.less";
 @import "variables.import.less";
+@import "shows.import.less";
 @import "notifications.import.less";
 @import "spinner.import.less";
 @import "bootstrap.import.less";
@@ -18,9 +19,15 @@ h3 {
   font-size: 28px;
 }
 
-a, a:link, a:visited {
-  color: #A5A5A5;
-  cursor: pointer;
+a, a:link, a:visited, a:hover, a:focus {
+  color: #2A6496;
+}
+
+#menu, .toolbar {
+  a, a:link, a:visited {
+    color: #A5A5A5;
+    cursor: pointer;
+  }
 }
 
 header.navbar {
@@ -28,22 +35,6 @@ header.navbar {
   height: 60px;
   background-color: #FFF;
   border-bottom: 1px solid #E0E0E0;
-}
-
-#container {
-
-  table {
-
-    th:first-of-type, td:first-of-type {
-      padding-left: 20px;
-    }
-
-    tr {
-      td {
-        padding: 10px 5px;
-      }
-    }
-  }
 }
 
 // Menu
@@ -233,6 +224,37 @@ header.navbar {
   }
 }
 
+#show {
+  .labels {
+    clear: both;
+
+    .labels-generic-info {
+      margin-top: -4px;
+      margin-left: 20px;
+    }
+
+    .labels-server-info {
+      margin-top: -4px;
+      margin-right: 5px;
+    }
+
+    .label {
+      margin-top: 0;
+      border-radius: 0 0 0.25em 0.25em;
+      display: inline-block;
+      padding: 0.5em 0.7em;
+    }
+  }
+
+  .content {
+    clear: both;
+
+    .overview {
+      margin-top: 10px;
+    }
+  }
+}
+
 .btn.btn-sm {
   font-size: 11px;
   font-weight: 700;
@@ -311,3 +333,57 @@ header.navbar {
 .info {
   color: @info;
 }
+.error {
+  color: @error;
+}
+.warning {
+  color: @warning;
+}
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+  background-color: transparent;
+}
+
+.table > thead > tr > th {
+  border-bottom: 1px solid #DDD;
+  vertical-align: bottom;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  border-top: 1px solid #E7EAEC;
+  line-height: 1.42857;
+  padding: 10px 8px;
+  vertical-align: top;
+}
+
+.table > thead > tr > th:first-of-type,
+.table > tbody > tr > th:first-of-type,
+.table > tfoot > tr > th:first-of-type,
+.table > thead > tr > td:first-of-type,
+.table > tbody > tr > td:first-of-type,
+.table > tfoot > tr > td:first-of-type {
+  padding-left: 20px;
+}
+
+.table > caption + thead > tr:first-child > th,
+.table > colgroup + thead > tr:first-child > th,
+.table > thead:first-child > tr:first-child > th,
+.table > caption + thead > tr:first-child > td,
+.table > colgroup + thead > tr:first-child > td,
+.table > thead:first-child > tr:first-child > td {
+  border-top: 0px none;
+}
+
+.table-striped > tbody > tr:nth-child(2n+1) > td,
+.table-striped > tbody > tr:nth-child(2n+1) > th {
+  background-color: #F9F9F9;
+}
+

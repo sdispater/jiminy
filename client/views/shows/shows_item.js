@@ -30,7 +30,7 @@ Template.showsItem.helpers({
     profile: function() {
         return Profiles.findOne(this.profile_id);
     }
-})
+});
 
 Template.showsItem.rendered = function(){
     $('.tip').tooltip();

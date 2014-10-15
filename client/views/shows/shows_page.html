@@ -1,0 +1,53 @@
+<template name="showsPage">
+    <div id="show" class="content col-md-12">
+        <div class="title col-md-12">
+            <h2 class="pull-left">{{name}}</h2>
+            <div class="toolbar pull-right">
+                <div class="btn-group btn-group-collapse">
+                    <a href="#" class="btn btn-default" data-toggle="modal">
+                        <i class="fa fa-refresh"></i>
+                        Update
+                    </a>
+                    <a class="btn btn-default">
+                        <i class="fa fa-cog"></i>
+                        Settings
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="labels">
+            <div class="labels-generic-info pull-left">
+                <span class="label label-info">
+                    {{network}}
+                </span>
+                <span class="label label-default">
+                    {{runtime}} minutes
+                </span>
+                {{#if ended}}
+                <span class="label label-danger">
+                    {{status}}
+                </span>
+                {{/if}}
+            </div>
+            <div class="labels-server-info pull-right">
+                <span class="label label-default">
+                    {{profile.name}}
+                </span>
+            </div>
+        </div>
+        <div class="content col-md-12">
+            <div class="row">
+                <div class="overview col-md-12 col-xs-12">
+                    {{overview}}
+                </div>
+            </div>
+            {{#each seasons}}
+            <div class="row">
+                <div class="season col-md-12">
+                    {{> seasonsItem}}
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</template>

@@ -1,0 +1,49 @@
+<template name="seasonsItem">
+    <h3>Season {{number}} <i class="season-status fa fa-circle-o success"></i></h3>
+    <div class="episodes">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Air Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {{#each episodes}}
+                <tr>
+                    <td class="status-cell">
+                        {{#if monitored}}
+                            {{#unless file_id}}
+                                <i class="fa fa-circle-o warning"></i>
+                            {{else}}
+                                <i class="fa fa-circle-o success"></i>
+                            {{/unless}}
+                        {{else}}
+                            {{#unless file_id}}
+                                <i class="fa fa-circle-thin warning"></i>
+                            {{/unless}}
+                        {{/if}}
+                    </td>
+                    <td class="number-cell">{{number}}</td>
+                    <td class="title-cell">
+                        <a href="#">{{name}}</a>
+                        {{#if overview}}
+                        <span class="pull-right tip fa fa-info-circle tip-overview"
+                              data-toggle="tooltip" data-placement="right" title="{{overview}}"></span>
+                        {{/if}}
+                    </td>
+                    {{#if air_date}}
+                    <td class="air-date-cell">{{shortDate air_date}}</td>
+                    {{else}}
+                    <td class="air-date-cell">Not yet scheduled</td>
+                    {{/if}}
+                    <td></td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</template>

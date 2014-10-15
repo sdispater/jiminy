@@ -2,6 +2,18 @@ Meteor.publish('shows', function() {
     return Shows.find()
 });
 
+Meteor.publish('singleShow', function(id) {
+    return id && Shows.find(id);
+});
+
+Meteor.publish('showSeasons', function(id) {
+    return id && Seasons.find({show_id: id});
+});
+
+Meteor.publish('showEpisodes', function(id) {
+    return id && Episodes.find({show_id: id});
+});
+
 Meteor.publish('seasons', function() {
     return Seasons.find();
 });
