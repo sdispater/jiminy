@@ -10,6 +10,10 @@ Meteor.publish('episodes', function() {
     return Episodes.find();
 });
 
+Meteor.publish('profiles', function() {
+    return Profiles.find();
+});
+
 Meteor.publish('notifications', function() {
     return Notifications.find({}, {sort: {created_at: -1}});
 })

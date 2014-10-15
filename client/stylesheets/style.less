@@ -1,9 +1,13 @@
-@import "mixins";
+@import "mixins.import.less";
+@import "variables.import.less";
+@import "notifications.import.less";
+@import "spinner.import.less";
+@import "bootstrap.import.less";
 
 html, body {
   font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
   background: #EFEFEF;
-  color: #5A5A5A;
+  color: @base-color;
 }
 
 h1, h2, h3, h4 {
@@ -152,6 +156,13 @@ header.navbar {
       color: #A5A5A5;
     }
 
+    .exists {
+      font-size: 45px;
+      vertical-align: middle;
+      text-align: center;
+      .vertical-align;
+    }
+
     .shows-search-labels {
       padding-bottom: 20px;
     }
@@ -166,6 +177,10 @@ header.navbar {
 
       select {
         font-weight: 300;
+      }
+
+      .checkbox {
+        margin-top: 40px;
       }
     }
 
@@ -288,4 +303,11 @@ header.navbar {
 // Iron progress bar
 #iron-router-progress.spinner {
   margin: 0;
+}
+
+.success {
+  color: @success;
+}
+.info {
+  color: @info;
 }

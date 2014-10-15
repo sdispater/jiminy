@@ -17,7 +17,12 @@ var addShowWorker = Job.processJobs('queue', 'addShow',
     function (job, cb) {
         var data = job.data;
         var tvdbId = data.tvdb_id;
-        var title = data.title
+        var title = data.title;
+        var seasonFolders = data.season_folders;
+        var path = data.path;
+        var startingSeason = data.starting_season;
+        var profileId = data.profile;
+        var showType = data.show_type;
 
         var newShowId = Shows.insert({
             name: title,
@@ -44,11 +49,14 @@ var addShowWorker = Job.processJobs('queue', 'addShow',
                 images: {},
                 runtime: show.runtime,
                 monitored: true,
-                season_folder: true,
+                season_folders: seasonFolders,
                 last_info_sync: new Date().getTime(),
                 first_aired: show.first_aired,
                 next_airing: null,
-                year: show.year
+                year: show.year,
+                path: path,
+                profile_id: profileId,
+                type: showType
             }
 
             // Downloading images
@@ -102,6 +110,8 @@ var addShowWorker = Job.processJobs('queue', 'addShow',
                 // Episodes
                 for (var j in season.episodes) {
                     var episode = season.episodes[j];
+                    var monitored = startingSeason <= season.season
+
                     var episodeOptions = {
                         season_id: seasonId,
                         show_id: newShowId,
@@ -111,7 +121,7 @@ var addShowWorker = Job.processJobs('queue', 'addShow',
                         name: episode.title,
                         overview: episode.overview,
                         file: null,
-                        monitored: true,
+                        monitored: monitored,
                         air_date: episode.first_aired,
                         air_date_utc: episode.first_aired_utc,
                         screen: null

@@ -18,6 +18,12 @@ Template.showsSearchItem.helpers({
 
             return 0;
         });
+    },
+    profiles: function () {
+        return Profiles.find();
+    },
+    exists: function() {
+        return Shows.find({tvdb_id: this.tvdb_id}).count() >= 1;
     }
 })
 
@@ -30,7 +36,43 @@ Template.showsSearchItem.events({
             return notify('This show already exists in your collection', 'error');
         }
 
-        Meteor.call('createJob', 'addShow', {tvdb_id: tvdbId, title: title}, function(err) {
+        var jobOptions = {
+            tvdb_id: tvdbId,
+            title: title,
+            season_folders: false
+        }
+
+
+        var form = $('form#form-' + tvdbId);
+        console.log(form);
+        console.log(form.serializeArray());
+
+        var formData = form.serializeArray()
+        for (var i in formData) {
+            var data = formData[i];
+
+            switch (data.name) {
+                case 'path':
+                    jobOptions['path'] = data.value;
+                    break;
+                case 'starting_season':
+                    jobOptions['starting_season'] = parseInt(data.value);
+                    break;
+                case 'profile':
+                    jobOptions['profile'] = data.value;
+                    break;
+                case 'show_type':
+                    jobOptions['show_type'] = data.value;
+                    break;
+                case 'season_folders':
+                    jobOptions['season_folders'] = data.value == 'on';
+                    break;
+            }
+        }
+
+        console.log(jobOptions);
+
+        Meteor.call('createJob', 'addShow', jobOptions, function(err) {
            Meteor.call('notify', 'Show <strong>' + title + '</strong> added', 'success');
         });
     }

@@ -1,14 +1,6 @@
 <template name="showsSearchItem">
     <div class="row">
-        <div class="next-air col-md-1 col-xs-1">
-            <div class="value">
-                31
-            </div>
-            <div class="units uppercase">
-                Oct
-            </div>
-        </div>
-        <div class="col-md-2 col-xs-3">
+        <div class="col-md-3 col-xs-4">
             <a href="{{url}}">
                 <img class="shows-poster" src="{{images.poster}}" />
             </a>
@@ -16,7 +8,12 @@
         <div class="col-md-9 col-xs-8">
             <div class="row">
                 <div class="shows-title-bar col-md-10 col-xs-10">
-                    <h3 class="shows-item-title">{{title}}</h3>
+                    <h3 class="shows-item-title">
+                        {{#if exists}}
+                            <i class="fa fa-check info"></i>
+                        {{/if}}
+                        {{title}}
+                    </h3>
                     <span class="shows-year">({{year}})</span>
                     <span class="label label-default">
                         {{network}}
@@ -45,21 +42,22 @@
                 </div>
             </div>
             <div class="shows-search-options row">
+                <form id="form-{{tvdb_id}}">
                 <div class="form-group col-md-4">
                     <label>
                         Path
                     </label>
-                    <select class="col-md-4 form-control">
-                        <option name="Add a different path">Add a different path</option>
+                    <select name="path" class="col-md-4 form-control">
+                        <option value="">Add a different path</option>
                     </select>
                 </div>
                 <div class="form-group col-md-2">
                     <label>
                         Starting Season
                     </label>
-                    <select class="col-md-2 form-control">
+                    <select name="starting_season" class="col-md-2 form-control">
                         {{#each seasons}}
-                        <option name="{{season}}">Season {{season}}</option>
+                        <option value="{{season}}">Season {{season}}</option>
                         {{/each}}
                     </select>
                 </div>
@@ -67,23 +65,29 @@
                     <label>
                         Profile
                     </label>
-                    <select class="col-md-2 form-control">
-                        <option name="sd">SD</option>
-                        <option name="hd-720">HD - 720p</option>
-                        <option name="hd-1080">HD - 1080p</option>
-                        <option name="hd-all">HD - All</option>
+                    <select name="profile" class="col-md-2 form-control">
+                        {{#each profiles}}
+                        <option value="{{_id}}">{{name}}</option>
+                        {{/each}}
                     </select>
                 </div>
                 <div class="form-group col-md-2">
                     <label>
                         Series Type
                     </label>
-                    <select class="col-md-2 form-control">
-                        <option name="standard">Standard</option>
-                        <option name="daily">Daily</option>
-                        <option name="anime">Anime</option>
+                    <select name="show_type" class="col-md-2 form-control">
+                        <option value="standard">Standard</option>
+                        <option value="daily">Daily</option>
+                        <option value="anime">Anime</option>
                     </select>
                 </div>
+                    <div class="checkbox checkbox-info col-md-2">
+                        <input type="checkbox" name="season_folders" id="season-folders-{{tvdb_id}}" checked>
+                        <label for="season-folders-{{tvdb_id}}">
+                            Season Folders
+                        </label>
+                    </div>
+                </form>
             </div>
             <div class="shows-search-actions">
                 <div class="add-button pull-right">
