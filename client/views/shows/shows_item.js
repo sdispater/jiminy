@@ -33,5 +33,5 @@ Template.showsItem.helpers({
 });
 
 Template.showsItem.rendered = function(){
-    $('.tip').tooltip();
+    //$('.tip').tooltip();
 }

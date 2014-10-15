@@ -37,17 +37,38 @@
         </div>
         <div class="content col-md-12">
             <div class="row">
-                <div class="overview col-md-12 col-xs-12">
+                <div class="poster-container col-md-2 col-xs-3">
+                    {{#if posterUrl}}
+                        <img class="shows-poster" src="{{posterUrl}}" />
+                    {{else}}
+                        <img class="shows-poster" src="images/placeholder.jpg" />
+                    {{/if}}
+                    <div class="row">
+                        <div class="links col-md-12">
+                            <a href="http://trakt.tv/show/{{slug}}" class="label label-info">
+                                TRAKT
+                            </a>
+                            <a href="http://thetvdb.com/?tab=series&id={{tvdb_id}}" class="label label-info">
+                                TVDB
+                            </a>
+                            <a href="http://imdb.com/title/{{imdb_id}}" class="label label-info">
+                                IMDB
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="overview col-md-10 col-xs-9">
                     {{overview}}
+                    {{#each seasons}}
+                        <div class="row">
+                            <div class="season col-md-12">
+                                {{> seasonsItem}}
+                            </div>
+                        </div>
+                    {{/each}}
                 </div>
             </div>
-            {{#each seasons}}
-            <div class="row">
-                <div class="season col-md-12">
-                    {{> seasonsItem}}
-                </div>
-            </div>
-            {{/each}}
+
         </div>
     </div>
 </template>
