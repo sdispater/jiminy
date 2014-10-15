@@ -22,6 +22,13 @@ Deps.autorun(function() {
     });
 });
 
+notify = function(message, type) {
+    return Messenger().post({
+        message: message,
+        type: type || 'info'
+    });
+}
+
 
 Meteor.Spinner.options = {
     lines: 17, // The number of lines to draw

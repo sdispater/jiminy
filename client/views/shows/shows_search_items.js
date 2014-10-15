@@ -27,7 +27,7 @@ Template.showsSearchItem.events({
         var title = $(e.target).data('title');
 
         if (Shows.find({'tvdb_id': tvdbId}).count() > 0) {
-            return Meteor.call('notify', 'This show already exists in your collection', 'error');
+            return notify('This show already exists in your collection', 'error');
         }
 
         Meteor.call('createJob', 'addShow', {tvdb_id: tvdbId, title: title}, function(err) {

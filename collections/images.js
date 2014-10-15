@@ -1,5 +1,5 @@
 Images = new FS.Collection("images", {
-    stores: [new FS.Store.FileSystem("images", {path: "~/Downloads"})]
+    stores: [new FS.Store.FileSystem("images", {path: "~/Downloads/jiminy"})]
 });
 
 Images.allow({
