@@ -1,3 +1,4 @@
+@import "vendor/elements.import.less";
 @import "mixins.import.less";
 @import "variables.import.less";
 @import "shows.import.less";
@@ -71,7 +72,8 @@ header.navbar {
 }
 
 .title {
-  background: #F7F7F7;
+  background: @title-background;
+  color: @title-color;
   border-bottom: 1px dotted #E0E0E0;
 
   h2 {
@@ -182,7 +184,7 @@ header.navbar {
       .add-button {
         .btn {
           margin-top: -1px;
-          border-radius: 0px 0px 3px 3px;
+          .border-radius(0px, 3px, 3px, 0px);
           border-top: 0;
         }
       }
@@ -232,18 +234,18 @@ header.navbar {
     clear: both;
 
     .labels-generic-info {
-      margin-top: -4px;
-      margin-left: 20px;
+      margin-top: -1px;
+      margin-left: 15px;
     }
 
     .labels-server-info {
-      margin-top: -4px;
+      margin-top: -1px;
       margin-right: 5px;
     }
 
     .label {
       margin-top: 0;
-      border-radius: 0 0 0.25em 0.25em;
+      .border-radius(0, 0.25em, 0.25em, 0);
       display: inline-block;
       padding: 0.5em 0.7em;
     }
@@ -364,6 +366,9 @@ header.navbar {
 }
 .warning {
   color: @warning;
+}
+.default {
+  color: @default;
 }
 
 .table {

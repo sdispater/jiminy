@@ -17,14 +17,15 @@
                     <td class="status-cell">
                         {{#if monitored}}
                             {{#unless file_id}}
-                                <i class="fa fa-circle-o warning"></i>
+                                <i class="fa fa-circle-o warning tip"
+                                   data-toggle="tooltip" data-placement="top" title="File missing from disk"></i>
                             {{else}}
-                                <i class="fa fa-circle-o success"></i>
+                                <i class="fa fa-circle-o success tip"
+                                   data-toggle="tooltip" data-placement="top" title="File present"></i>
                             {{/unless}}
                         {{else}}
-                            {{#unless file_id}}
-                                <i class="fa fa-circle-thin warning"></i>
-                            {{/unless}}
+                            <i class="fa fa-circle-thin default tip"
+                               data-toggle="tooltip" data-placement="top" title="Unmonitored"></i>
                         {{/if}}
                     </td>
                     <td class="number-cell">{{number}}</td>
