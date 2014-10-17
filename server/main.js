@@ -19,6 +19,9 @@ Meteor.methods({
 
 
 Meteor.startup(function() {
-   Jobs.startJobs();
-   SyncedCron.start();
+    Meteor.call('log', 'Server', 'info', 'Server started');
+    Jobs.startJobs();
+    Meteor.call('log', 'Server', 'info', 'Jobs started');
+    SyncedCron.start();
+    Meteor.call('log', 'Server', 'info', 'Scheduler started');
 });

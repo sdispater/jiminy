@@ -14,6 +14,8 @@ var getShowSummary = function(tvdbId) {
 }
 
 addShow = function(data) {
+    Meteor.call('log', 'Shows', 'info', 'Processing show ' + data.title);
+
     var tvdbId = data.tvdb_id;
     var title = data.title;
     var seasonFolders = data.season_folders;
@@ -164,14 +166,6 @@ addShow = function(data) {
             updateOptions['next_airing'] = nextEpisode.air_date
         }
         Shows.update(newShowId, {$set: updateOptions});
-
-        job.done(function(err) {
-            if (err) {
-                throw err;
-            }
-
-            return Meteor.call('notify', 'Finished processing show ' + show.title, 'success');
-        });
     } catch (err) {
         throw err;
     }
@@ -183,14 +177,14 @@ updateShow = function(show) {
     } catch (err) {
         job.fail(err.message);
 
-        return Meteor.call('notify', '[Show Update] An error occurred while updating show ' + show.name, 'error');
+        return Meteor.call('log', 'Shows', 'error', 'An error occurred while updating show ' + show.name);
     }
 
     try {
         var showData = getShowSummary(show.tvdb_id);
 
         if (show.last_info_sync / 1000 >= showData.last_updated) {
-            return Meteor.call('notify', '[Show Update] Nothing new for show ' + show.name, 'success');
+            return Meteor.call('log', 'Shows', 'info', 'Nothing new for show ' + show.name);
         }
 
         var updateOptions = {
@@ -302,14 +296,6 @@ updateShow = function(show) {
             updateOptions['next_airing'] = nextEpisode.air_date
         }
         Shows.update(show._id, {$set: updateOptions});
-
-        job.done(function(err) {
-            if (err) {
-                throw err;
-            }
-
-            return Meteor.call('notify', '[Show Update]Finished updating show ' + show.name, 'success');
-        });
     } catch (err) {
         Shows.update(show._id, {$set: {ready: true}});
 
@@ -321,8 +307,10 @@ updateShow = function(show) {
 
 
 refreshShows = function() {
+    Meteor.call('log', 'Shows', 'info', 'Refreshing shows information');
     var shows = Shows.find({ready: true});
     shows.forEach(function(show) {
        updateShow(show);
     });
+    Meteor.call('log', 'Shows', 'info', 'Shows information refreshed');
 }

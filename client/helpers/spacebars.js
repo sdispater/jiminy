@@ -41,3 +41,14 @@ UI.registerHelper('shortDate', function(date) {
     }
     return moment(date).format('LL');
 });
+
+UI.registerHelper('humanTime', function(date, timeIn) {
+    var timeIn = timeIn || 's'
+    if (typeof date == 'number') {
+        if (timeIn == 'ms') {
+            date = date / 1000;
+        }
+        return moment.unix(date).format("dddd, MMMM Do YYYY, h:mm:ss a");
+    }
+    return moment(date).format("dddd, MMMM Do YYYY, h:mm:ss a");
+});

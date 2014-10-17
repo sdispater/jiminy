@@ -3,14 +3,24 @@ var addShowWorker = Job.processJobs('queue', 'addShow', function(job, cb) {
 
         try {
             addShow(data);
+
+            job.done(function(err) {
+                if (err) {
+                    throw err;
+                }
+
+                Meteor.call('notify', 'Finished processing show ' + show.title, 'success');
+                Meteor.call('log', 'Shows', 'info', 'Finished processing show ' + show.title);
+            });
         } catch (err) {
             console.log(err);
             job.fail(err.message)
 
             return Meteor.call(
-                'notify',
-                '[Show Add] An error occurred while adding show ' + data.title,
-                'error'
+                'log',
+                'Shows',
+                'error',
+                'An error occurred while adding show ' + data.title + ' (' + err.message + ')'
             );
         } finally {
             cb();
@@ -24,14 +34,23 @@ var updateShowWorker = Job.processJobs('queue', 'updateShow', function(job, cb) 
 
         try {
             updateShow(show);
+
+            job.done(function(err) {
+                if (err) {
+                    throw err;
+                }
+
+                return Meteor.call('log', 'Shows', 'info', 'Finished updating show ' + show.name);
+            });
         } catch (err) {
             console.log(err);
             job.fail(err.message)
 
             return Meteor.call(
-                'notify',
-                '[Show Add] An error occurred while updating show ' + show.name,
-                'error'
+                'log',
+                'Shows',
+                'error',
+                'An error occurred while updating show ' + show.name
             );
         } finally {
             cb();
@@ -42,14 +61,21 @@ var updateShowWorker = Job.processJobs('queue', 'updateShow', function(job, cb) 
 var refreshShowsWorker = Job.processJobs('queue', 'refreshShows', function(job, cb) {
     try {
         refreshShows();
+
+        job.done(function(err) {
+            if (err) {
+                throw err;
+            }
+        });
     } catch (err) {
         console.log(err);
         job.fail(err.message)
 
         return Meteor.call(
-            'notify',
-            '[Shows Refresh] An error occurred while refreshing shows',
-            'error'
+            'log',
+            'Shows',
+            'error',
+            'An error occurred while refreshing shows'
         );
     } finally {
         cb();

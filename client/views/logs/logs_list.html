@@ -1,0 +1,39 @@
+<template name="logsList">
+    <div id="logs" class="content col-md-12">
+        <div class="title col-md-12">
+            <h2 class="pull-left">Logs</h2>
+            <div class="toolbar pull-right">
+                <div class="btn-group btn-group-collapse">
+                    <a class="btn btn-default x-clear-logs">
+                        <i class="fa fa-trash"></i>
+                        Clear logs
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="logs-list" class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Category</th>
+                    <th>Message</th>
+                    <th>Time</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each logs}}
+                    <tr class="{{type}}">
+                        <td class="number-cell">{{type}}</td>
+                        <td class="title-cell">
+                            {{category}}
+                        </td>
+                        <td>{{description}}</td>
+                        <td>{{humanTime created_at 'ms'}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</template>
