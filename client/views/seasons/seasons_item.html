@@ -13,6 +13,7 @@
             </thead>
             <tbody>
             {{#each episodes}}
+                {{#if name}}
                 <tr>
                     <td class="status-cell">
                         {{#if monitored}}
@@ -43,6 +44,7 @@
                     {{/if}}
                     <td></td>
                 </tr>
+                {{/if}}
             {{/each}}
             </tbody>
         </table>

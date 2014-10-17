@@ -49,16 +49,14 @@
                     </span>
                 </div>
                 <div class="col-md-2">
-                    <div class="progress">
-                        {{#if downloadedEpisodesPercentage}}
-                        <span class="progress-behind">
-                            {{downloadedEpisodesCount}} / {{episodesCount}}
-                        </span>
-                        {{/if}}
+                    <div class="progress progress-xs">
                         <div class="progress-bar progress-bar-info" role="progressbar"
                              aria-valuenow="{{downloadedEpisodesCount}}" aria-valuemin="0" aria-valuemax="{{episodesCount}}" style="width: {{downloadedEpisodesPercentage}}%;">
                             {{downloadedEpisodesCount}} / {{episodesCount}}
                         </div>
+                    </div>
+                    <div class="progress-info">
+                        {{downloadedEpisodesCount}} / {{episodesCount}}
                     </div>
                 </div>
             </div>
