@@ -1,4 +1,4 @@
-Jobs = JobCollection()
+Jobs = JobCollection();
 
 
 Meteor.methods({
