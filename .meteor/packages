@@ -20,4 +20,5 @@ cfs:filesystem
 cfs:ejson-file
 cfs:ui
 cfs:gridfs
+percolatestudio:synced-cron
 

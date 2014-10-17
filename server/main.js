@@ -19,5 +19,6 @@ Meteor.methods({
 
 
 Meteor.startup(function() {
-   return Jobs.startJobs();
+   Jobs.startJobs();
+   SyncedCron.start();
 });
