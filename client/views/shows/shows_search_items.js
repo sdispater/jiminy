@@ -24,6 +24,19 @@ Template.showsSearchItem.helpers({
     },
     exists: function() {
         return Shows.find({tvdb_id: this.tvdb_id}).count() >= 1;
+    },
+    paths: function() {
+        return Paths.find();
+    },
+    searchPaths: function(query, callback) {
+        console.log(query);
+        Meteor.call('searchPaths', query, function(err, res) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            callback(res.map(function(v){ return {value: v}; }));
+        });
     }
 })
 
@@ -75,5 +88,32 @@ Template.showsSearchItem.events({
         Meteor.call('createJob', 'addShow', jobOptions, function(err) {
            Meteor.call('notify', 'Show <strong>' + title + '</strong> added', 'success');
         });
+    },
+    'change select[name="path"]': function(e) {
+        var select = $(e.target);
+        var tvdbId = select.data('tvdb-id');
+        if (select.val() == 'add') {
+            $('#modal-' + tvdbId).modal();
+        }
+    },
+    'click .x-add-folder': function(e) {
+        console.log('Adding folder');
+        var button = $(e.target);
+        var tvdbId = button.data('tvdb-id');
+        var input = $('#folder-' + tvdbId);
+        var folder = input.val();
+
+        Meteor.call('addFolder', folder, function(err, res) {
+            if (err) {
+                input.closest('.form-group').children('.add-folder-error').html(err.message);
+            } else {
+                input.closest('.modal').modal('hide');
+            }
+        });
     }
 });
+
+
+Template.showsSearchItem.rendered = function() {
+    Meteor.typeahead.inject($('.typeahead'));
+}

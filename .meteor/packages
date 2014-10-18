@@ -21,4 +21,5 @@ cfs:ejson-file
 cfs:ui
 cfs:gridfs
 percolatestudio:synced-cron
+sergeyt:typeahead
 

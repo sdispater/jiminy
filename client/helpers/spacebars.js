@@ -52,3 +52,12 @@ UI.registerHelper('humanTime', function(date, timeIn) {
     }
     return moment(date).format("dddd, MMMM Do YYYY, h:mm:ss a");
 });
+
+UI.registerHelper('length', function(value) {
+    console.log(typeof value);
+    if (typeof value == 'object') {
+        return value.count();
+    }
+
+    return value.length;
+});

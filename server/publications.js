@@ -54,3 +54,9 @@ Meteor.publish('images', function() {
 Meteor.publish('logs', function() {
     return Logs.find({}, {sort: {created_at: -1}});
 });
+
+
+// Paths
+Meteor.publish('paths', function() {
+    return Paths.find();
+});

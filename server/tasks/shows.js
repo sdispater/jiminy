@@ -19,7 +19,7 @@ addShow = function(data) {
     var tvdbId = data.tvdb_id;
     var title = data.title;
     var seasonFolders = data.season_folders;
-    var path = data.path;
+    var path = Paths.findOne({_id: data.path});
     var startingSeason = data.starting_season;
     var profileId = data.profile;
     var showType = data.show_type;
@@ -54,7 +54,7 @@ addShow = function(data) {
             first_aired: show.first_aired,
             next_airing: null,
             year: show.year,
-            path: path,
+            path: path.path + '/' + show.title,
             profile_id: profileId,
             type: showType
         }
