@@ -29,7 +29,6 @@ Template.showsSearchItem.helpers({
         return Paths.find();
     },
     searchPaths: function(query, callback) {
-        console.log(query);
         Meteor.call('searchPaths', query, function(err, res) {
             if (err) {
                 console.log(err);
@@ -82,8 +81,6 @@ Template.showsSearchItem.events({
                     break;
             }
         }
-
-        console.log(jobOptions);
 
         Meteor.call('createJob', 'addShow', jobOptions, function(err) {
            Meteor.call('notify', 'Show <strong>' + title + '</strong> added', 'success');

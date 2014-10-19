@@ -2,26 +2,43 @@ Paths = new Meteor.Collection('paths');
 
 if (Meteor.isServer) {
     var fs = Npm.require('fs');
+    var path = Npm.require('path');
 
     Meteor.methods({
         searchPaths: function (query) {
+            var basename;
             var dirs = [];
-            if (fs.existsSync(query) && fs.statSync(query).isDirectory()) {
-                files = fs.readdirSync(query);
+            var baseDir = path.dirname(query);
+            if (fs.existsSync(baseDir)) {
+                if (fs.existsSync(query) && fs.statSync(query).isDirectory()) {
+                    baseDir = query;
+                    basename = '';
+                } else {
+                    basename = path.basename(query);
+                }
+                files = fs.readdirSync(baseDir);
 
                 for (var i in files) {
                     var file = files[i];
-                    var filePath = query + '/' + file;
-                    console.log(filePath);
+                    var filePath = path.join(baseDir, file);
+                    if (file.indexOf('.') == 0) {
+                        continue;
+                    }
+
                     stat = fs.statSync(filePath)
 
                     if (stat.isDirectory()) {
-                        dirs.push(filePath.replace('//', '/'));
+                        if (basename.length) {
+                            if (file.substring(0, basename.length) == basename) {
+                                dirs.push(path.normalize(filePath));
+                            }
+                        } else {
+                            dirs.push(path.normalize(filePath));
+                        }
                     }
                 }
             }
 
-            console.log(dirs);
             return dirs;
         },
         addFolder: function(folder) {
