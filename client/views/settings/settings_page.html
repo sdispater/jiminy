@@ -1,0 +1,56 @@
+<template name="settingsPage">
+    <div id="settings" class="content col-md-12">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="active">
+                <div class="active-indicator"></div>
+                <a href="#media-management" role="tab" data-toggle="tab">
+                    Media Management
+                </a>
+            </li>
+            <li>
+                <div class="active-indicator"></div>
+                <a href="#profiles" role="tab" data-toggle="tab">
+                    Profiles
+                </a>
+            </li>
+            <li>
+                <div class="active-indicator"></div>
+                <a href="#indexers" role="tab" data-toggle="tab">
+                    Indexers
+                </a>
+            </li>
+            <li>
+                <div class="active-indicator"></div>
+                <a href="#download-clients" role="tab" data-toggle="tab">
+                    Download Clients
+                </a>
+            </li>
+            <li>
+                <div class="active-indicator"></div>
+                <a href="#connect" role="tab" data-toggle="tab">
+                    Connect
+                </a>
+            </li>
+            <li>
+                <div class="active-indicator"></div>
+                <a href="#general" role="tab" data-toggle="tab">
+                    General
+                </a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane active form-horizontal" id="media-management">
+                {{> settingsMediaManagement }}
+            </div>
+            <div class="tab-pane" id="profiles">
+                {{> settingsProfiles }}
+            </div>
+            <div class="tab-pane" id="indexers">...</div>
+            <div class="tab-pane" id="download-clients">...</div>
+            <div class="tab-pane" id="connect">...</div>
+            <div class="tab-pane" id="general">...</div>
+        </div>
+    </div>
+</template>

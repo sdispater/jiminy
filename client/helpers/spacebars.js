@@ -54,10 +54,17 @@ UI.registerHelper('humanTime', function(date, timeIn) {
 });
 
 UI.registerHelper('length', function(value) {
-    console.log(typeof value);
     if (typeof value == 'object') {
         return value.count();
     }
 
     return value.length;
+});
+
+UI.registerHelper('eq', function(value1, value2) {
+    return value1 == value2;
+});
+
+UI.registerHelper('in', function(list, value) {
+    return list.indexOf(value) >= 0;
 });

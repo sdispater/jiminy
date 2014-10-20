@@ -1,0 +1,21 @@
+<template name="settingsProfiles">
+    <h4>
+        Profiles
+    </h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Language</th>
+                <th>Qualities</th>
+                <th>Cutoff</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#each profiles}}
+            {{> settingsProfilesItem }}
+        {{/each}}
+        </tbody>
+    </table>
+</template>

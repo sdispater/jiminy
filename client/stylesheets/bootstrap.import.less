@@ -60,6 +60,8 @@
 
   h4.modal-title {
     font-size: 24px;
+    border: 0 !important;
+    padding: 0 !important;
   }
 
   .modal-footer {
@@ -84,7 +86,15 @@
 
 .form-group {
   input {
-    .border-radius(0);
+    padding: 4px 8px;
+    border: 1px solid #CCC;
+    .border-radius(2px);
+    .box-shadow(0px 1px 1px rgba(0, 0, 0, 0.075) inset);
+    .transition(border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s);
+  }
+
+  input:focus {
+    border: 1px solid #3ABCC2;
   }
 }
 
@@ -114,4 +124,139 @@
   overflow: scroll;
   .border-radius(0);
   .box-shadow(0px 0px 2px rgba(0, 0, 0, 0.176));
+}
+
+// Tabs
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  border-width: 0px 1px 1px;
+  border-style: solid;
+  border-color: #DDD #DDD transparent;
+  border-image: none;
+  .border-radius(0);
+  outline: 0 none;
+}
+
+.nav-tabs > li:first-child.active > a,
+.nav-tabs > li:first-child.active > a:hover,
+.nav-tabs > li:first-child.active > a:focus {
+  border-left: 0 !important;
+}
+
+.nav-tabs > li {
+  margin-bottom: -3px;
+}
+
+.nav-tabs > li > a {
+  margin: 0;
+}
+
+.nav-tabs > li > a:hover {
+  border: 1px solid transparent;
+  background: none;
+  margin: 0;
+}
+
+.nav-tabs > li > a:focus {
+  outline: 0 none;
+}
+
+.nav-tabs > li > .active-indicator {
+  position: absolute;
+  height: 2px;
+  background-color: #099A8C;
+  display: block;
+  top: -2px;
+  width: 100%;
+  visibility: hidden;
+}
+
+.nav-tabs > li.active > .active-indicator {
+  visibility: visible;
+}
+
+.tab-content {
+  padding: 20px;
+
+  .tab-pane {
+    h4 {
+      width: 100%;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #EFEFEF;
+    }
+  }
+}
+
+// Forms
+.form-horizontal .checkbox > label {
+  top: -15px;
+  margin-left: 5px;
+}
+
+.form-horizontal label {
+  font-weight: 400;
+}
+
+.form-horizontal {
+  .input-group {
+    padding-top: 7px;
+  }
+}
+
+.input-group-addon {
+  border: 1px solid #E5E9EC;
+  color: #9EA9B2;
+  font-size: 14px;
+  padding: 6px 10px;
+  .border-radius(0);
+  .transition(border 0.2s linear 0s);
+
+  .arrow {
+    position: relative;
+    right: -6px;
+    color: #D1DADE;
+    z-index: 100;
+  }
+
+  a,
+  a:hover,
+  a:visited,
+  a:focus {
+    color: #A5A5A5;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+.input-group-addon.primary {
+  border: 1px solid #36B0B7;
+  color: #FFF;
+  background-color: #3ABCC2;
+
+  .arrow {
+    color: #3ABCC2;
+  }
+
+  a,
+  a:hover,
+  a:visited,
+  a:focus {
+    color: #FFFFFF;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+.input-group-addon.action {
+  cursor: pointer;
+}
+
+.input-group-addon:last-child .arrow:before {
+  font-family: "FontAwesome";
+  content: "";
+  font-size: 23px;
+  position: absolute;
+  left: -23px;
+  top: -2px;
 }
