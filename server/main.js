@@ -17,7 +17,6 @@ Meteor.methods({
     }
 });
 
-
 Meteor.startup(function() {
     Meteor.call('log', 'Server', 'info', 'Server started');
     Jobs.startJobs();

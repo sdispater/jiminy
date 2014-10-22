@@ -200,7 +200,13 @@
 
 .form-horizontal {
   .input-group {
-    padding-top: 7px;
+    select {
+      margin-top: 7px;
+    }
+  }
+
+  .input-group.checkbox {
+    margin-left: 15px;
   }
 }
 
@@ -253,6 +259,45 @@
 }
 
 .input-group-addon:last-child .arrow:before {
+  font-family: "FontAwesome";
+  content: "";
+  font-size: 23px;
+  position: absolute;
+  left: -23px;
+  top: -2px;
+}
+
+.input-group-btn {
+  .arrow {
+    position: relative;
+    right: -6px;
+    color: #D1DADE;
+    z-index: 100;
+  }
+
+  button {
+    border: 1px solid #E5E9EC;
+    color: #9EA9B2;
+    font-size: 14px;
+    padding: 6px 10px;
+    .border-radius(0);
+    .transition(border 0.2s linear 0s);
+  }
+}
+
+.input-group-btn.primary {
+  .arrow {
+    color: #3ABCC2;
+  }
+
+  button {
+    border: 1px solid #36B0B7;
+    color: #FFF;
+    background-color: #3ABCC2;
+  }
+}
+
+.input-group-btn:last-child .arrow:before {
   font-family: "FontAwesome";
   content: "";
   font-size: 23px;

@@ -60,3 +60,11 @@ Meteor.publish('logs', function() {
 Meteor.publish('paths', function() {
     return Paths.find();
 });
+
+// Indexers
+Meteor.publish('indexers', function(){
+    return Indexers.find()
+});
+Meteor.publish('indexersPresets', function(){
+    return IndexersPresets.find()
+});

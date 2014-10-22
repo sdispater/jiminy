@@ -28,6 +28,7 @@ cfs:upload-http@0.0.2
 cfs:worker@0.0.0
 check@1.0.2
 coffeescript@1.0.4
+copleykj:mesosphere@0.1.13
 ctl-helper@1.0.4
 ctl@1.0.2
 ddp@1.0.10
@@ -59,6 +60,7 @@ mongo-livedata@1.0.6
 mongo@1.0.7
 mrt:iron-router-progress@0.9.2
 mrt:moment@2.8.1
+mrt:underscore-string-latest@2.3.3
 observe-sequence@1.0.3
 ordered-dict@1.0.1
 pcel:messenger@1.4.2
@@ -72,6 +74,7 @@ reload@1.1.1
 retry@1.0.1
 routepolicy@1.0.2
 sacha:spin@2.0.4
+sdispater:newznab@0.1.0
 sdispater:trakt@0.1.0
 sergeyt:typeahead@0.10.5_4
 session@1.0.3

@@ -10,6 +10,7 @@ iron:router
 mrt:iron-router-progress
 pfafman:font-awesome-4
 sdispater:trakt
+sdispater:newznab
 sacha:spin
 pcel:messenger
 mrt:moment
@@ -22,4 +23,5 @@ cfs:ui
 cfs:gridfs
 percolatestudio:synced-cron
 sergeyt:typeahead
+copleykj:mesosphere
 

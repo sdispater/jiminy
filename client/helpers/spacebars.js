@@ -68,3 +68,22 @@ UI.registerHelper('eq', function(value1, value2) {
 UI.registerHelper('in', function(list, value) {
     return list.indexOf(value) >= 0;
 });
+
+
+// Validation forms
+UI.registerHelper('hasError', function(validated, name) {
+    if (validated == undefined || validated.errors == undefined) {
+        return false;
+    }
+
+    return validated.errors[name] != undefined;
+});
+
+
+UI.registerHelper('error', function(validated, name) {
+    if (validated.errors[name] == undefined) {
+        return null
+    }
+
+    return validated.errors.name.message;
+});

@@ -1,0 +1,124 @@
+<template name="settingsIndexers">
+    <h4>
+        Indexers
+        <div class="settings-toolbar pull-right">
+            <a class="btn btn-default" data-toggle="modal" data-target="#modal-add-indexer">
+                <i class="fa fa-plus"></i>
+                Add
+            </a>
+        </div>
+    </h4>
+    <table class="table table-striped clear">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>RSS Sync</th>
+            <th>Search</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each indexers}}
+            {{> settingsIndexersItem }}
+        {{/each}}
+        </tbody>
+    </table>
+    <div class="modal fade" id="modal-add-indexer" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Add Indexer</h4>
+                </div>
+                <div class="modal-body">
+                    <h4>
+                        Usenet
+                    </h4>
+                    <form class="form form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-12 presets">
+                                {{#each presets}}
+                                <div class="input-group radio radio-primary radio-inline x-choose-preset">
+                                    <input type="radio" name="preset_indexer" id="preset_{{_id}}" value="{{_id}}" />
+                                    <label for="preset_{{_id}}">
+                                        {{name}}
+                                    </label>
+                                </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                    </form>
+                    <h4>
+                        Indexer
+                    </h4>
+                    <form id="chosenPreset" class="form form-horizontal">
+                        {{#if chosenIndexer}}
+                            {{#with chosenIndexer}}
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+                                        Name
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" type="text" name="name" value="{{name}}" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+                                        Enable RSS Sync
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group checkbox checkbox-primary">
+                                            {{#if rss}}
+                                            <input type="checkbox" name="rss" id="rss" checked />
+                                            {{else}}
+                                            <input type="checkbox" name="rss" id="rss" />
+                                            {{/if}}
+                                            <label for="rss"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+                                        Enable Search
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group checkbox checkbox-primary">
+                                            {{#if rss}}
+                                            <input type="checkbox" name="search" id="search" checked />
+                                            {{else}}
+                                            <input type="checkbox" name="search" id="search" />
+                                            {{/if}}
+                                            <label for="search"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{#each fields}}
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">
+                                            {{name}}
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <input class="form-control" type="{{type}}" name="{{field_name}}" />
+                                        </div>
+                                    </div>
+                                {{/each}}
+                                <input type="hidden" name="preset" value="{{_id}}" />
+                            {{/with}}
+                        {{else}}
+                            <p class="default-message">
+                                Choose an indexer to add
+                            </p>
+                        {{/if}}
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    {{#if chosenIndexer}}
+                    <button type="button" class="btn btn-info x-test-indexer">Test</button>
+                    <button type="button" class="btn btn-primary x-add-indexer">Add</button>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
