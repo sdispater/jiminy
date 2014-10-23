@@ -10,7 +10,7 @@ iron:router
 mrt:iron-router-progress
 pfafman:font-awesome-4
 sdispater:trakt
-sdispater:newznab
+sdispater:indexers
 sacha:spin
 pcel:messenger
 mrt:moment

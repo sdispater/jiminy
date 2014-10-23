@@ -65,6 +65,3 @@ Meteor.publish('paths', function() {
 Meteor.publish('indexers', function(){
     return Indexers.find()
 });
-Meteor.publish('indexersPresets', function(){
-    return IndexersPresets.find()
-});

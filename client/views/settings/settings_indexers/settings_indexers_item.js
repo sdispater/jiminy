@@ -1,10 +1,4 @@
 Template.settingsIndexersItem.helpers({
-    settings: function() {
-        return this.settings.map(function(setting, index) {
-            setting.index = index;
-            return setting;
-        });
-    }
 });
 
 Template.settingsIndexersItem.events({
@@ -45,7 +39,6 @@ Template.settingsIndexersItem.events({
         var target = $(e.target).closest('.input-group').children('input').first();
         var name = target.attr('name');
         var value = target.val();
-        var index = target.data('index');
         var indexerId = target.closest('form').data('indexer');
 
         Meteor.call('updateIndexerSetting', indexerId, name, value, function(err) {
@@ -71,7 +64,7 @@ Template.settingsIndexersItem.events({
             notify(message, 'error');
         } else {
             var indexer = Indexers.findOne(validated.formData.indexer);
-            Meteor.call('testIndexer', validated.formData, indexer.preset, function(err, res) {
+            Meteor.call('testIndexer', validated.formData, indexer.implementation, function(err, res) {
                 if (err) {
                     return notify(err.message, 'error');
                 }
@@ -89,7 +82,7 @@ Template.settingsIndexersItem.events({
             }
             $('.modal-backdrop').remove();
             $('body').removeClass('modal-open');
-            
+
             notify('Indexer deleted', 'success');
         });
     }

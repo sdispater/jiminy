@@ -76,14 +76,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{#each settings}}
+                                {{#each arrayify settings}}
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">
-                                            {{name}}
+                                            {{value.name}}
                                         </label>
                                         <div class="col-sm-8">
                                             <div class="input-group">
-                                                <input class="form-control" type="{{type}}" name="{{field_name}}" value="{{value}}" data-index="{{index}}" />
+                                                <input class="form-control" type="{{value.type}}" name="{{name}}" value="{{value.value}}" />
                                                 <span class="input-group-addon primary action x-change-setting">
                                                     <span class="arrow"></span>
                                                     <i class="fa fa-check"></i>

@@ -1,9 +1,3 @@
-/**
- * A meteor library for communicating with newznab compliant APIs
- *
- * @author Sébastien Eustace <sebastien.eustace@gmail.com>
- */
-
 var request = Npm.require('request');
 var xml2js = Npm.require('xml2js');
 
@@ -30,20 +24,8 @@ var makeRequest = function(url, data) {
     }
 }
 
+NewznabRequester = function() {}
 
-if (Meteor.isServer) {
-    Newznab = function (url, apiKey) {
-        this.init(url, apiKey);
-    }
-
-    Newznab.prototype.init = function (url, apiKey) {
-        this.url = url;
-        this.apiKey = apiKey;
-    };
-
-    Newznab.prototype.test = function () {
-        var response = makeRequest(this.url + 'api', {t: 'search', q: 'something', apikey: this.apiKey});
-
-        return response;
-    };
+NewznabRequester.prototype.request = function(url, data) {
+    return makeRequest(url, data);
 }

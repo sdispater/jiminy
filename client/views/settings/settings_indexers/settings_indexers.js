@@ -3,17 +3,19 @@ Template.settingsIndexers.helpers({
         return Indexers.find();
     },
     presets: function() {
-        return IndexersPresets.find();
+        try {
+            return new IndexersImplementations().implementations;
+        } catch (err) {
+            console.log(err);
+        }
     },
     chosenIndexer: function() {
-        var indexerId = Session.get('chosenIndexer');
-        if (!indexerId) {
+        var implementation = Session.get('chosenImplementation');
+        if (!implementation) {
             return null;
         }
 
-        var indexer = IndexersPresets.findOne(indexerId);
-
-        return indexer;
+        return new IndexersImplementations().implementations[implementation];
     },
     validated: function() {
         return Session.get('indexerValidated');
@@ -27,7 +29,7 @@ Template.settingsIndexers.events({
         var checked = radio.prop('checked');
 
         if (checked) {
-            Session.set('chosenIndexer', radio.val());
+            Session.set('chosenImplementation', radio.val());
         }
     },
     'click .x-test-indexer': function(e) {
@@ -45,8 +47,8 @@ Template.settingsIndexers.events({
             }
             notify(message, 'error');
         } else {
-            var preset = IndexersPresets.findOne(validated.formData.preset);
-            Meteor.call('testIndexer', validated.formData, preset, function(err, res) {
+            var implementation = validated.formData.implementation;
+            Meteor.call('testIndexer', validated.formData, implementation, function(err, res) {
                 if (err) {
                     return notify(err.message, 'error');
                 }
@@ -70,8 +72,8 @@ Template.settingsIndexers.events({
             }
             notify(message, 'error');
         } else {
-            var preset = IndexersPresets.findOne(validated.formData.preset);
-                Meteor.call('addIndexer', validated.formData, preset, function(err, res) {
+            var implementation = validated.formData.implementation;
+                Meteor.call('addIndexer', validated.formData, implementation, function(err, res) {
                 if (err) {
                     return notify(err.message, 'error');
                 }

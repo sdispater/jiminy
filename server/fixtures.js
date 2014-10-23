@@ -29,38 +29,3 @@ if (Profiles.find().count() == 0) {
         cutoff: 3
     });
 }
-
-
-
-if (IndexersPresets.find().count() == 0) {
-    var newznab = IndexersPresets.insert({
-        name: 'Newznab',
-        rss: true,
-        search: true,
-        preset: 'newznab',
-        fields: [{
-            name: 'URL',
-            field_name: 'url',
-            type: 'text'
-        }, {
-            name: 'API Key',
-            field_name: 'api_key',
-            type: 'text'
-        }]
-    });
-    var omgwtfnzbs = IndexersPresets.insert({
-        name: 'Omgwtfnzbs',
-        rss: true,
-        search: true,
-        preset: 'omgwtfnzbs',
-        fields: [{
-            name: 'Username',
-            field_name: 'username',
-            type: 'text'
-        }, {
-            name: 'API Key',
-            field_name: 'api_key',
-            type: 'text'
-        }]
-    });
-}

@@ -1,44 +1,33 @@
-IndexersPresets = new Meteor.Collection('indexers_presets');
 Indexers = new Meteor.Collection('indexers');
 
 if (Meteor.isServer) {
     Meteor.methods({
-        testIndexer: function(data, preset) {
-            if (typeof preset == 'object') {
-                preset = preset.preset;
-            }
-            if (preset == 'newznab') {
-                var newznab = new Newznab(data.url, data.api_key)
-                try {
-                    return newznab.test();
-                } catch (err) {
-                    throw new Meteor.Error(err.code || 500, err.message);
-                }
-            } else {
-                throw new Meteor.Error(400, 'Unsupported preset: ' + preset);
+        testIndexer: function(data, implementation) {
+            var indexer = new Indexer(implementation, data);
+            try {
+                return indexer.test();
+            } catch (err) {
+                throw new Meteor.Error(err.code || 500, err.message);
             }
         },
-        addIndexer: function(data, presetId) {
-            var preset = IndexersPresets.findOne(presetId);
-
+        addIndexer: function (data, implementationId) {
+            var implementation = new IndexersImplementations().implementations[implementationId];
             var indexerOptions = {
                 name: data.name,
                 rss: data.rss == 'on',
                 search: data.search == 'on',
-                preset: preset.preset,
-                settings: []
+                implementation: implementationId,
+                settings: {}
             }
 
-            for (var i in preset.fields) {
-                var field = preset.fields[i];
-                var fieldName = field.field_name;
-                var name = field.name;
+            for (var settingName in implementation.settings) {
+                var setting= implementation.settings[settingName];
+                var name = setting.name;
 
-                indexerOptions['settings'].push({
-                    field_name: fieldName,
+                indexerOptions['settings'][settingName] = {
                     name: name,
-                    value: data[fieldName]
-                });
+                    value: data[settingName]
+                };
             }
 
             Indexers.insert(indexerOptions);
@@ -47,9 +36,12 @@ if (Meteor.isServer) {
             Indexers.update(indexerId, {$set: data});
         },
         updateIndexerSetting: function(indexerId, name, value){
+            var settingUpdate = {};
+            settingUpdate['settings.' + name + '.value'] = value;
+
             Indexers.update(
-                {_id: indexerId, 'settings.field_name': name},
-                {$set: {'settings.$.value': value}}
+                indexerId,
+                {$set: settingUpdate}
             );
         },
         deleteIndexer: function(indexerId){
