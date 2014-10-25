@@ -1,0 +1,87 @@
+<template name="settingsDownloadersItem">
+    <tr>
+        <td>
+            <a href="#" data-toggle="modal" data-target="#modal-downloader-{{_id}}">
+                {{name}}
+            </a>
+        </td>
+        <td>
+            {{#if enabled}}
+            <i class="fa fa-check success"></i>
+            {{else}}
+            <i class="fa fa-times error"></i>
+            {{/if}}
+        </td>
+        <td>
+        </td>
+        <td>
+            <div class="modal fade" id="modal-downloader-{{_id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">Edit Downloader {{name}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="downloader-{{_id}}" class="form form-horizontal downloader-form" data-indexer="{{_id}}">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+                                        Name
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" name="name" value="{{name}}" />
+                                            <span class="input-group-addon primary action x-change-name">
+                                                <span class="arrow"></span>
+                                                <i class="fa fa-check"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+                                        Enabled
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group checkbox checkbox-primary">
+                                            {{#if enabled}}
+                                            <input class="x-change-property" type="checkbox" name="enabled" id="enabled_{{_id}}" checked />
+                                            {{else}}
+                                            <input class="x-change-property" type="checkbox" name="enabled" id="enabled_{{_id}}" />
+                                            {{/if}}
+                                            <label for="enabled_{{_id}}"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{#each arrayify settings}}
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">
+                                            {{value.name}}
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <div class="input-group">
+                                                <input class="form-control" type="{{value.type}}" name="{{name}}" value="{{value.value}}" />
+                                                <span class="input-group-addon primary action x-change-setting">
+                                                    <span class="arrow"></span>
+                                                    <i class="fa fa-check"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{/each}}
+                                <input type="hidden" name="downloader" value="{{_id}}" />
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="pull-left">
+                                <button type="button" class="btn btn-danger x-delete-indexer" data-indexer="{{_id}}">Delete</button>
+                            </div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-info x-edit-test-downloader" data-indexer="{{_id}}">Test</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</template>

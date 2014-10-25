@@ -1,0 +1,93 @@
+<template name="settingsDownloaders">
+    <h4>
+        Downloaders
+        <div class="settings-toolbar pull-right">
+            <a class="btn btn-default" data-toggle="modal" data-target="#modal-add-downloader">
+                <i class="fa fa-plus"></i>
+                Add
+            </a>
+        </div>
+    </h4>
+    <table class="table table-striped clear">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Enabled</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each downloaders}}
+            {{> settingsDownloadersItem }}
+        {{/each}}
+        </tbody>
+    </table>
+    <div class="modal fade" id="modal-add-downloader" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Add Downloader</h4>
+                </div>
+                <div class="modal-body">
+                    <h4>
+                        Usenet
+                    </h4>
+                    <form class="form form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-12 presets">
+                                {{#each arrayify implementations}}
+                                <div class="input-group radio radio-primary radio-inline x-choose-implementation">
+                                    <input type="radio" name="downloader_implementation" id="implementation_{{name}}" value="{{name}}" />
+                                    <label for="implementation_{{name}}">
+                                        {{value.name}}
+                                    </label>
+                                </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                    </form>
+                    <h4>
+                        Indexer
+                    </h4>
+                    <form id="chosenImplementation" class="form form-horizontal">
+                        {{#if chosenImplementation}}
+                            {{#with chosenImplementation}}
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+                                        Name
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" type="text" name="name" value="{{name}}" />
+                                    </div>
+                                </div>
+                                {{#each arrayify settings}}
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">
+                                            {{value.name}}
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <input class="form-control" type="{{value.type}}" name="{{name}}" />
+                                        </div>
+                                    </div>
+                                {{/each}}
+                                <input type="hidden" name="implementation" value="{{id}}" />
+                            {{/with}}
+                        {{else}}
+                            <p class="default-message">
+                                Choose an indexer to add
+                            </p>
+                        {{/if}}
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    {{#if chosenImplementation}}
+                    <button type="button" class="btn btn-info x-test-downloader">Test</button>
+                    <button type="button" class="btn btn-primary x-add-downloader">Add</button>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

@@ -65,3 +65,8 @@ Meteor.publish('paths', function() {
 Meteor.publish('indexers', function(){
     return Indexers.find()
 });
+
+// Downloaders
+Meteor.publish('downloaders', function() {
+    return Downloaders.find();
+});
