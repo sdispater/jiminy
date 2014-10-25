@@ -81,3 +81,50 @@ var refreshShowsWorker = Job.processJobs('queue', 'refreshShows', function(job, 
         cb();
     }
 });
+
+var automaticSearchEpisodeWorker = Job.processJobs('queue', 'automaticSearchEpisode', function(job, cb) {
+    try {
+        automaticSearchEpisode(job.data.episodeId);
+
+        job.done(function(err) {
+            if (err) {
+                throw err;
+            }
+        });
+    } catch (err) {
+        console.log(err);
+        job.fail(err.message)
+
+        return Meteor.call(
+            'log',
+            'Episode Search',
+            'error',
+            err.message
+        );
+    } finally {
+        cb();
+    }
+});
+
+var searchWantedEpisodesDownloadsWorker = Job.processJobs('queue', 'searchWantedEpisodesDownloads', function(job, cb) {
+    try {
+        searchWantedEpisodesDownloads(job.data);
+
+        job.done(function(err) {
+            if (err) {
+                throw err;
+            }
+        });
+    } catch (err) {
+        job.fail(err.message)
+
+        return Meteor.call(
+            'log',
+            'Episode Search',
+            'error',
+            err.message
+        );
+    } finally {
+        cb();
+    }
+});

@@ -18,5 +18,13 @@ Template.seasonsItem.events({
                 return notify(err.message, 'error');
             }
         });
+    },
+    'click .x-search-season-wanted': function(e) {
+        e.preventDefault();
+
+        var button = $(e.target);
+        var seasonId = button.data('season-id');
+
+        Meteor.call('createJob', 'searchWantedEpisodesDownloads', {season_id: seasonId});
     }
 });

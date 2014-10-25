@@ -312,3 +312,20 @@
   border: 0;
   background: transparent;
 }
+
+
+// Dropdown
+.dropdown-menu {
+  border-radius: 1px;
+  border: medium none;
+  border-left: 1px solid @success;
+  max-width: 350px;
+  box-shadow: 0px 0px 1px rgba(86, 96, 117, 0.15);
+}
+
+.dropdown.pull-right {
+  .dropdown-menu {
+    border-left: 0;
+    border-right: 1px solid @success;
+  }
+}

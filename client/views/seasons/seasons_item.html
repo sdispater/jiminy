@@ -1,5 +1,17 @@
 <template name="seasonsItem">
-    <h3>Season {{number}} <i class="season-status fa fa-circle-o success"></i></h3>
+    <div class="season-heading">
+        <h3>Season {{number}} <i class="season-status fa fa-circle-o success"></i></h3>
+        <div class="actions">
+            <div class="dropdown pull-right">
+                <button class="btn btn-unstyled btn-lg dropdown-toggle" type="button" id="season-{{number}}-actions" data-toggle="dropdown">
+                    <i class="fa fa-ellipsis-h"></i>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="season-{{number}}-actions">
+                    <li role="presentation"><a href="#" role="menuitem" tabindex="-1" class="x-search-season-wanted" data-season-id="{{_id}}">Search Wanted Episodes</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <div class="episodes">
         <table class="table table-striped">
             <thead>
@@ -19,14 +31,14 @@
                     <td class="status-cell">
                         {{#if monitored}}
                             {{#unless file_id}}
-                                <i class="fa fa-circle-o warning tip"
+                                <i class="fa fa-circle-o monitored {{status}} tip"
                                    data-toggle="tooltip" data-placement="top" title="File missing from disk"></i>
                             {{else}}
-                                <i class="fa fa-circle-o success tip"
+                                <i class="fa fa-circle-o monitored {{status}} tip"
                                    data-toggle="tooltip" data-placement="top" title="File present"></i>
                             {{/unless}}
                         {{else}}
-                            <i class="fa fa-circle-thin default tip"
+                            <i class="fa fa-circle-thin unmonitored {{status}} tip"
                                data-toggle="tooltip" data-placement="top" title="Unmonitored"></i>
                         {{/if}}
                     </td>
