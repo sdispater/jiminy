@@ -1,34 +1,42 @@
 Template.settingsProfilesItem.helpers({
     ownQualities: function() {
-        var qualities = []
-        for (var i in this.qualities) {
-            var qualityIndex = this.qualities[i];
-            qualities.push({
-                index: qualityIndex,
-                name: Qualities[qualityIndex],
-                cutoff: this.cutoff
-            });
-        }
+        return this.qualities.map(function(quality){
+            return Quality.findById(quality);
+        }).sort(function (a, b) {
+            if (a.id < b.id) {
+                return 1;
+            }
+            if (a.id > b.id) {
+                return -1;
+            }
 
-        return qualities;
+            return 0;
+        });
     },
     ownCutoff: function() {
-        return Qualities[this.cutoff];
+        return Quality.findById(this.cutoff);
     },
     availableQualities: function() {
-        var qualities = []
-        var length = Qualities.length;
-        for (var i = length - 1; i >= 0; i--) {
-            var quality = Qualities[i];
-            qualities.push({
-                index: i,
-                name: quality,
-                hasQuality: this.qualities.indexOf(i) >= 0,
-                profileId: this._id
-            });
-        }
+        var self = this;
+        try {
+            return Quality.all().sort(function (a, b) {
+                if (a.id < b.id) {
+                    return 1;
+                }
+                if (a.id > b.id) {
+                    return -1;
+                }
 
-        return qualities;
+                return 0;
+            }).map(function (quality) {
+                return _.extend(quality, {
+                    profileId: self._id,
+                    hasQuality: self.qualities.indexOf(quality.id) >= 0
+                });
+            });
+        } catch (err) {
+            console.log(err);
+        }
     }
 });
 
@@ -40,11 +48,11 @@ Template.settingsProfilesItem.events({
         var quality = parseInt(checkbox.data('quality'));
 
         if (checked) {
-            Profiles.update(profileId, {$push: {qualities: quality}});
-            notify('Quality ' + Qualities[quality] + ' added')
+            Profiles.update(profileId, {$addToSet: {qualities: quality}});
+            notify('Quality ' + Quality.findById(quality).name + ' added')
         } else {
             Profiles.update(profileId, {$pull: {qualities: quality}});
-            notify('Quality ' + Qualities[quality] + ' removed')
+            notify('Quality ' + Quality.findById(quality).name + ' removed')
         }
     },
     'change select.cutoff' : function(e) {
@@ -53,7 +61,7 @@ Template.settingsProfilesItem.events({
         var profileId = select.closest('form').data('profile');
 
         Profiles.update(profileId, {$set: {cutoff: cutoff}});
-        notify('Cutoff changed to ' + Qualities[cutoff]);
+        notify('Cutoff changed to ' + Quality.findById(cutoff).name);
     },
     'click .x-change-name' : function(e) {
         e.preventDefault();

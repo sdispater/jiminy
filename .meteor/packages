@@ -11,6 +11,7 @@ mrt:iron-router-progress
 pfafman:font-awesome-4
 sdispater:trakt
 sdispater:indexers
+sdispater:guesser
 sacha:spin
 pcel:messenger
 mrt:moment

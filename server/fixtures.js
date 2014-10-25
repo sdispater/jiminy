@@ -10,22 +10,22 @@ if (Meteor.Trakt().collection.find().count() === 0) {
 if (Profiles.find().count() == 0) {
     Profiles.insert({
         name: 'SD',
-        qualities: [0, 1, 2],
-        cutoff: 0
+        qualities: [1, 2, 3],
+        cutoff: 1
     });
     Profiles.insert({
         name: 'HD-720p',
-        qualities: [3, 6, 7],
-        cutoff: 3
-    });
-    Profiles.insert({
-        name: 'HD-1080p',
-        qualities: [4, 8, 9],
+        qualities: [4, 7, 8],
         cutoff: 4
     });
     Profiles.insert({
+        name: 'HD-1080p',
+        qualities: [5, 9, 10],
+        cutoff: 5
+    });
+    Profiles.insert({
         name: 'HD-All',
-        qualities: [3, 4, 6, 7, 8, 9],
-        cutoff: 3
+        qualities: [4, 5, 7, 8, 9, 10],
+        cutoff: 4
     });
 }

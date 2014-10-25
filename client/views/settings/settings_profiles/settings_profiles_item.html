@@ -14,7 +14,7 @@
             {{/each}}
         </td>
         <td>
-            {{ownCutoff}}
+            {{ownCutoff.name}}
         </td>
         <td>
             <div class="modal fade" id="modal-profile-{{_id}}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -49,9 +49,9 @@
                                             <select name="cutoff" class="cutoff">
                                                 {{#each ownQualities}}
                                                 {{#if eq index cutoff}}
-                                                <option value="{{index}}" selected>{{name}}</option>
+                                                <option value="{{id}}" selected>{{name}}</option>
                                                 {{else}}
-                                                <option value="{{index}}">{{name}}</option>
+                                                <option value="{{id}}">{{name}}</option>
                                                 {{/if}}
                                                 {{/each}}
                                             </select>
@@ -67,11 +67,11 @@
                                             {{#each availableQualities}}
                                                 <li class="checkbox checkbox-primary">
                                                 {{#if hasQuality}}
-                                                <input class="quality" type="checkbox" name="quality-{{profileId}}-{{index}}" id="quality-{{profileId}}-{{index}}" data-quality="{{index}}" checked />
+                                                <input class="quality" type="checkbox" name="quality-{{profileId}}-{{id}}" id="quality-{{profileId}}-{{id}}" data-quality="{{id}}" checked />
                                                 {{else}}
-                                                    <input class="quality" type="checkbox" name="quality-{{profileId}}-{{index}}" id="quality-{{profileId}}-{{index}}" data-quality="{{index}}" />
+                                                    <input class="quality" type="checkbox" name="quality-{{profileId}}-{{id}}" id="quality-{{profileId}}-{{id}}" data-quality="{{id}}" />
                                                 {{/if}}
-                                                <label for="quality-{{profileId}}-{{index}}">
+                                                <label for="quality-{{profileId}}-{{id}}">
                                                     {{name}}
                                                 </label>
                                                 </li>

@@ -9,12 +9,13 @@
                     <th>Name</th>
                     <th>Air Date</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
             {{#each episodes}}
                 {{#if name}}
-                <tr>
+                <tr data-episode="{{_id}}">
                     <td class="status-cell">
                         {{#if monitored}}
                             {{#unless file_id}}
@@ -49,6 +50,11 @@
                                 66%
                             </div>
                         </div>
+                    </td>
+                    <td class="actions-cell">
+                        <button class="btn btn-default btn-xs x-search-episode" title="Automatic search">
+                            <i class="fa fa-search"></i>
+                        </button>
                     </td>
                 </tr>
                 {{/if}}
