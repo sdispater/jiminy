@@ -29,9 +29,34 @@ Template.showsItem.helpers({
     },
     profile: function() {
         return Profiles.findOne(this.profile_id);
+    },
+    availableProfiles: function() {
+        return Profiles.find().map(function(p) {
+            return _.extend(p, {isCurrentProfile: p._id.str == this.profile_id });
+        });
     }
 });
 
 Template.showsItem.rendered = function(){
-    //$('.tip').tooltip();
+    $('.tip').tooltip();
 }
+
+Template.showsItem.events({
+    'click .x-edit-show': function(e) {
+        var button = $(e.target);
+        var showId = button.data('show-id');
+        var form = button.closest('.modal-footer').prev('.modal-body').children('form').first();
+        var formData = form.serializeArray()
+        var showData = {}
+        for (var i in formData) {
+            var data = formData[i];
+            showData[data.name] = data.value;
+        }
+
+        Meteor.call('updateShow', showId, showData, function(err) {
+            if (err) {
+                notify(err.message, 'error');
+            }
+        });
+    }
+})

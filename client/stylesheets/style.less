@@ -16,6 +16,10 @@ html, body {
 
 h1, h2, h3, h4 {
   font-weight: 300;
+
+  strong {
+    font-weight: 400;
+  }
 }
 
 h3 {
@@ -230,6 +234,16 @@ header.navbar {
       font-size: 12px;
       text-align: right;
       color: darken(@light-color, 10%);
+    }
+
+    .show-actions {
+      position: absolute;
+      top: 0px;
+      right: 24px;
+
+      .btn {
+        border-top: 0;
+      }
     }
   }
 
