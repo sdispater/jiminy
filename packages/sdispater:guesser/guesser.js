@@ -21,12 +21,12 @@ Guesser.prototype.init = function () {
 
 }
 
-Guesser.prototype.guess = function(filename) {
+Guesser.prototype.guess = function(proposition) {
     for (var i in TitleRegexes) {
         var regex = TitleRegexes[i];
-        var match = XRegExp.exec(filename, regex);
+        var match = XRegExp.exec(proposition.title, regex);
         if (match) {
-            return new Guess(match);
+            return new Guess(match, proposition);
         }
     }
 }
@@ -54,8 +54,9 @@ var otherSourceRegex = new XRegExp('(?<hdtv>HD[-_. ]TV)|(?<sdtv>SD[-_. ]TV)', 'i
 //var animeBlurayRegex = new XRegExp('bd(?:720|1080)|(?<=[-_. (\[])bd(?=[-_. )\]])', 'ix');
 var highDefPdtvRegex = new XRegExp('hr[-_. ]ws', 'ix');
 
-Guess = function(match) {
+Guess = function(match, proposition) {
     _.extend(this, match);
+    this.proposition = proposition;
 
     this.clean();
     this.guessQuality();

@@ -76,6 +76,7 @@ routepolicy@1.0.2
 sacha:spin@2.0.4
 sdispater:guesser@0.1.0
 sdispater:indexers@0.1.0
+sdispater:sabnzbd@0.1.0
 sdispater:trakt@0.1.0
 sergeyt:typeahead@0.10.5_4
 session@1.0.3

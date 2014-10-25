@@ -30,7 +30,7 @@ automaticSearchEpisode = function(episodeId) {
         var proposition = propositions[i];
         var guesser = new Guesser();
         // Checking validity
-        var guess = guesser.guess(proposition.title);
+        var guess = guesser.guess(proposition);
         if (guess && guess.quality) {
             for (var j in qualities) {
                 var quality = qualities[j];
@@ -75,7 +75,7 @@ automaticSearchEpisode = function(episodeId) {
             'log',
             'Episode Search',
             'info',
-            'Valid candidate (' + candidate.input + ') for '
+            'Valid candidate (' + candidate.proposition.title + ') for '
             + show.name
             + ' Season ' + episode.season_number
             + ' Episode ' + episode.number
@@ -85,7 +85,7 @@ automaticSearchEpisode = function(episodeId) {
             'notify',
             'Episode Found',
             'info',
-            'Valid candidate (' + candidate.input + ') for '
+            'Valid candidate (' + candidate.proposition.title + ') for '
             + show.name
             + ' Season ' + episode.season_number
             + ' Episode ' + episode.number
@@ -97,7 +97,7 @@ automaticSearchEpisode = function(episodeId) {
             'log',
             'Episode Search',
             'success',
-            'Valid candidate (' + candidate.input + ') found for '
+            'Valid candidate (' + candidate.proposition.title + ') found for '
             + show.name
             + ' Season ' + episode.season_number
             + ' Episode ' + episode.number

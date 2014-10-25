@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "xregexp": {
-      "version": "https://github.com/slevithan/xregexp/tarball/2650989f9a0e9ccea088e0ad6a48c088075ff0ae"
-    }
-  }
-}
