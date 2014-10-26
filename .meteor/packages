@@ -16,7 +16,6 @@ sdispater:downloaders
 sacha:spin
 pcel:messenger
 mrt:moment
-vsivsi:job-collection
 http
 cfs:standard-packages
 cfs:filesystem
@@ -26,4 +25,5 @@ cfs:gridfs
 percolatestudio:synced-cron
 sergeyt:typeahead
 copleykj:mesosphere
+vsivsi:job-collection
 
