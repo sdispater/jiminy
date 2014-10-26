@@ -124,7 +124,17 @@ addShow = function(data) {
                     monitored: monitored,
                     air_date: episode.first_aired,
                     air_date_utc: episode.first_aired_utc,
-                    screen: null
+                    screen: null,
+                    status: 'unaired'
+                }
+
+                var hasAired = episode.first_aired_utc < new Date().getTime() / 1000;
+                if (hasAired) {
+                    if (monitored) {
+                        episodeOptions['status'] = 'wanted';
+                    } else {
+                        episodeOptions['status'] = 'aired';
+                    }
                 }
 
                 /*if (episode.screen) {
@@ -265,8 +275,19 @@ updateShow = function(show) {
                         monitored: monitored,
                         air_date: episode.first_aired,
                         air_date_utc: episode.first_aired_utc,
-                        screen: null
+                        screen: null,
+                        status: 'unaired'
                     }
+
+                    var hasAired = episode.first_aired_utc < new Date().getTime() / 1000;
+                    if (hasAired) {
+                        if (monitored) {
+                            episodeOptions['status'] = 'wanted';
+                        } else {
+                            episodeOptions['status'] = 'aired';
+                        }
+                    }
+
                     var episodeId = Episodes.insert(episodeOptions);
                 } else {
                     var episodeOptions = {

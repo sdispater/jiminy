@@ -53,9 +53,13 @@ updateDownloads = function() {
             var downloadData = downloader.get(download);
             if (downloadData) {
                 Downloads.update(download._id, {$set: downloadData.toObject()});
+            } else {
+                Downloads.remove(download._id);
+                Episodes.update({downloadId: download._id}, {$set: {status: 'canceled'}});
+                return false;
             }
         } catch(err) {
-            Meteor.call('log', 'Episode Download', 'error', err.message);
+            return Meteor.call('log', 'Episode Download', 'error', err.message);
         }
 
         Episodes.update({downloadId: download._id}, {$set: {status: downloadData.status}});

@@ -28,7 +28,7 @@ SyncedCron.add({
         return parser.text('every 1 hours');
     },
     job: function() {
-        setEpisodesStatuses();
+        searchWantedEpisodesDownloads();
 
         return 'Search Wanted Episodes Done';
     }
