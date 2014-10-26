@@ -9,10 +9,10 @@ mizzao:bootstrap-3
 iron:router
 mrt:iron-router-progress
 pfafman:font-awesome-4
-sdispater:trakt
-sdispater:indexers
-sdispater:guesser
-sdispater:downloaders
+jiminy:trakt
+jiminy:indexers
+jiminy:guesser
+jiminy:downloaders
 sacha:spin
 pcel:messenger
 mrt:moment
