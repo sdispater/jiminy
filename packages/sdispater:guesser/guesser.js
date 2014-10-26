@@ -62,6 +62,17 @@ Guess = function(match, proposition) {
     this.guessQuality();
 }
 
+Guess.prototype.toObject = function() {
+    return {
+        proposition: this.proposition.toObject(),
+        quality: this.quality.toObject(),
+        title: this.title,
+        season: this.season,
+        episode: this.episode,
+        input: this.input
+    }
+}
+
 Guess.prototype.clean = function() {
     this.title = this.title ? this.title.replace(/[_.]/g, ' '): '';
     this.season = this.season ? parseInt(this.season) : 0;

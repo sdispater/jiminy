@@ -70,3 +70,7 @@ Meteor.publish('indexers', function(){
 Meteor.publish('downloaders', function() {
     return Downloaders.find();
 });
+
+Meteor.publish('downloads', function() {
+   return Downloads.find();
+});

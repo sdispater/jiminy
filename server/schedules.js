@@ -33,3 +33,15 @@ SyncedCron.add({
         return 'Search Wanted Episodes Done';
     }
 });
+
+SyncedCron.add({
+    name: 'Update Downloads',
+    schedule: function(parser) {
+        return parser.text('every 10 seconds');
+    },
+    job: function() {
+        updateDownloads();
+
+        return 'Download Updated';
+    }
+});

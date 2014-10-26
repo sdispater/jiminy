@@ -26,50 +26,7 @@
             </thead>
             <tbody>
             {{#each episodes}}
-                {{#if name}}
-                <tr data-episode="{{_id}}">
-                    <td class="status-cell">
-                        {{#if monitored}}
-                            {{#unless file_id}}
-                                <i class="fa fa-circle-o monitored {{status}} tip"
-                                   data-toggle="tooltip" data-placement="top" title="File missing from disk"></i>
-                            {{else}}
-                                <i class="fa fa-circle-o monitored {{status}} tip"
-                                   data-toggle="tooltip" data-placement="top" title="File present"></i>
-                            {{/unless}}
-                        {{else}}
-                            <i class="fa fa-circle-thin unmonitored {{status}} tip"
-                               data-toggle="tooltip" data-placement="top" title="Unmonitored"></i>
-                        {{/if}}
-                    </td>
-                    <td class="number-cell">{{number}}</td>
-                    <td class="title-cell">
-                        <a href="#">{{name}}</a>
-                        {{#if overview}}
-                        <span class="pull-right tip fa fa-info-circle tip-overview"
-                              data-toggle="tooltip" data-placement="right" title="{{overview}}"></span>
-                        {{/if}}
-                    </td>
-                    {{#if air_date}}
-                    <td class="air-date-cell">{{shortDate air_date}}</td>
-                    {{else}}
-                    <td class="air-date-cell">Not yet scheduled</td>
-                    {{/if}}
-                    <td class="progress-cell">
-                        <div class="progress progress-xs">
-                            <div class="progress-bar progress-bar-info" role="progressbar"
-                                 aria-valuenow="66" aria-valuemin="0" aria-valuemax="100" style="width: 66%;">
-                                66%
-                            </div>
-                        </div>
-                    </td>
-                    <td class="actions-cell">
-                        <button class="btn btn-default btn-xs x-search-episode" title="Automatic search">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </td>
-                </tr>
-                {{/if}}
+                {{> episodesItem}}
             {{/each}}
             </tbody>
         </table>

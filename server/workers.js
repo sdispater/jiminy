@@ -128,3 +128,27 @@ var searchWantedEpisodesDownloadsWorker = Job.processJobs('queue', 'searchWanted
         cb();
     }
 });
+
+var downloadCandidateWorker = Job.processJobs('queue', 'downloadCandidate', function(job, cb) {
+    try {
+        downloadCandidate(job.data.candidate);
+
+        job.done(function(err) {
+            if (err) {
+                throw err;
+            }
+        });
+    } catch (err) {
+        console.log(err);
+        job.fail(err.message)
+
+        return Meteor.call(
+            'log',
+            'Episode Download',
+            'error',
+            err.message
+        );
+    } finally {
+        cb();
+    }
+});

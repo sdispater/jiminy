@@ -2,46 +2,46 @@ Template.settingsDownloadersItem.helpers({
 });
 
 Template.settingsDownloadersItem.events({
-    'click .indexer-form .x-change-name' : function(e) {
+    'click .downloader-form .x-change-name' : function(e) {
         e.preventDefault();
 
         var target = $(e.target);
         var name = target.closest('.input-group').children('input').first().val();
-        var indexerId = target.closest('form').data('indexer');
+        var downloaderId = target.closest('form').data('downloader');
 
-        Meteor.call('updateDownloader', indexerId, {name: name}, function(err) {
+        Meteor.call('updateDownloader', downloaderId, {name: name}, function(err) {
             if (err) {
                 throw err;
             }
             notify('Name changed to ' + name);
         });
     },
-    'change .indexer-form .x-change-property' : function(e) {
+    'change .downloader-form .x-change-property' : function(e) {
         e.preventDefault();
 
         var options = {}
         var target = $(e.target);
         var name = target.attr('name');
         var checked = target.prop('checked');
-        var indexerId = target.closest('form').data('indexer');
+        var downloaderId = target.closest('form').data('downloader');
         options[name] = checked;
 
-        Meteor.call('updateDownloader', indexerId, options, function(err) {
+        Meteor.call('updateDownloader', downloaderId, options, function(err) {
             if (err) {
                 throw err;
             }
             notify('Value changed');
         });
     },
-    'click .indexer-form .x-change-setting' : function(e) {
+    'click .downloader-form .x-change-setting' : function(e) {
         e.preventDefault();
 
         var target = $(e.target).closest('.input-group').children('input').first();
         var name = target.attr('name');
         var value = target.val();
-        var indexerId = target.closest('form').data('indexer');
+        var downloaderId = target.closest('form').data('downloader');
 
-        Meteor.call('updateDownloaderSetting', indexerId, name, value, function(err) {
+        Meteor.call('updateDownloaderSetting', downloaderId, name, value, function(err) {
             if (err) {
                 throw err;
             }
@@ -49,7 +49,7 @@ Template.settingsDownloadersItem.events({
         });
     },
     'click .x-edit-test-downloader': function(e) {
-        var form = $('form#downloader-' + $(e.target).data('indexer'));
+        var form = $('form#downloader-' + $(e.target).data('downloader'));
         //var formData = Mesosphere.Utils.getFormData(form);
 
         //var validator = Mesosphere.newznabForm;
@@ -87,10 +87,10 @@ Template.settingsDownloadersItem.events({
             })
         }
     },
-    'click .x-delete-indexer': function(e) {
+    'click .x-delete-downloader': function(e) {
         var button = $(e.target);
-        var indexerId = button.data('indexer');
-        Meteor.call('deleteDownloader', indexerId, function(err) {
+        var downloaderId = button.data('downloader');
+        Meteor.call('deleteDownloader', downloaderId, function(err) {
             if (err) {
                 return notify(err.message, 'error');
             }

@@ -42,3 +42,10 @@ Quality.findById = function(id) {
 Quality.prototype.eq = function(quality) {
     return this.id == quality.id;
 }
+
+Quality.prototype.toObject = function() {
+    return {
+        id: this.id,
+        name: this.name
+    }
+}

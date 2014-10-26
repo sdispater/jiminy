@@ -44,7 +44,7 @@ Newznab.prototype.searchEpisode = function(episode, show, maxAge) {
     }
 
     for (var i in response.body.rss.channel[0].item) {
-        items.push(this.processItem(response.body.rss.channel[0].item[i]));
+        items.push(this.processItem(response.body.rss.channel[0].item[i], episode));
     }
 
     return items;
@@ -56,12 +56,12 @@ Newznab.prototype.test = function() {
     return true;
 };
 
-Newznab.prototype.processItem = function(entry) {
+Newznab.prototype.processItem = function(entry, episode) {
     var title, date, link;
 
     title = entry.title[0];
     link = entry.link[0];
     date = entry.pubDate[0];
 
-    return new Item(title, link, date);
+    return new Proposition(episode, title, link, date, 'usenet');
 };

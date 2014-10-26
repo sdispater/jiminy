@@ -15,7 +15,7 @@ Package.onUse(function(api) {
   api.addFiles('indexers/implementations.js', ['client', 'server']);
   api.addFiles('indexers/newznab.js', ['client', 'server']);
   api.addFiles('requesters/newznab.js', 'server');
-  api.addFiles('resources/item.js', 'server');
+  api.addFiles('resources/proposition.js', 'server');
   api.addFiles("indexer.js", 'server');
   api.export('Indexer', 'server');
   api.export('IndexersImplementations', ['server', 'client']);

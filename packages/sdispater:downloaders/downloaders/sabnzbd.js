@@ -61,6 +61,66 @@ _SABnzbd.prototype.test = function() {
     );
 }
 
+_SABnzbd.prototype.supports = function(proposition) {
+    return proposition.type == 'usenet';
+}
+
+_SABnzbd.prototype.add = function(proposition) {
+    if (!this.supports(proposition)) {
+        throw new Error('Unsupported proposition');
+    }
+
+    return this.addUrl(proposition.link, proposition.title);
+}
+
+_SABnzbd.prototype.addUrl = function(url, name) {
+    var self = this;
+    var Q = Npm.require('q');
+
+    return this._wrap(
+        this.sabnzbd.queue.addurl(url)
+            .then(function(r) {
+                if (r.status == false) {
+                    throw new Error('Something went wrong adding the url ' + url);
+                } else {
+                    return Q.delay(10000);
+                }
+            })
+            .then(function() {
+                return self.sabnzbd.entries();
+            })
+            .then(function(entries) {
+                for (var i in entries) {
+                    var entry = entries[i];
+                    var entryName = entry.name;
+                    if (entryName == name || entryName == url) {
+                        return new DownloadData(entry.nzbid, entry.size, entry.downloaded, entry.status);
+                    }
+                }
+            })
+            .catch(function(err) {
+                throw err;
+            })
+    );
+}
+
+_SABnzbd.prototype.get = function(download) {
+    return this._wrap(
+        this.sabnzbd.entries()
+            .then(function(entries) {
+                for (var i in entries) {
+                    var entry = entries[i];
+                    if (entry.nzbid == download.externalId) {
+                        return new DownloadData(entry.nzbid, entry.size, entry.size - entry.size_left, entry.status);
+                    }
+                }
+            })
+            .catch(function(err) {
+                throw err;
+            })
+    );
+}
+
 if (Meteor.isClient) {
     DownloadersImplementations._register(_SABnzbd, true);
 } else {

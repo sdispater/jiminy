@@ -1,0 +1,45 @@
+<template name="episodesItem">
+    {{#if name}}
+        <tr data-episode="{{_id}}">
+            <td class="status-cell">
+                {{#if monitored}}
+                        <i class="fa fa-circle-o monitored {{status}} tip"
+                           data-toggle="tooltip" data-placement="top" title="File present"></i>
+                {{else}}
+                    <i class="fa fa-circle-thin unmonitored {{status}} tip"
+                       data-toggle="tooltip" data-placement="top" title="Unmonitored"></i>
+                {{/if}}
+            </td>
+            <td class="number-cell">{{number}}</td>
+            <td class="title-cell">
+                <a href="#">{{name}}</a>
+                {{#if overview}}
+                    <span class="pull-right tip fa fa-info-circle tip-overview"
+                          data-toggle="tooltip" data-placement="right" title="{{overview}}"></span>
+                {{/if}}
+            </td>
+            {{#if air_date}}
+                <td class="air-date-cell">{{shortDate air_date}}</td>
+            {{else}}
+                <td class="air-date-cell">Not yet scheduled</td>
+            {{/if}}
+            <td class="progress-cell">
+                {{#if download}}
+                    {{#with download}}
+                <div class="progress progress-xs">
+                    <div class="progress-bar progress-bar-info" role="progressbar"
+                         aria-valuenow="{{done}}" aria-valuemin="0" aria-valuemax="{{total}}" style="width: {{percent}}%;">
+                        {{percent}}%
+                    </div>
+                </div>
+                    {{/with}}
+                {{/if}}
+            </td>
+            <td class="actions-cell">
+                <button class="btn btn-default btn-xs x-search-episode" title="Automatic search">
+                    <i class="fa fa-search"></i>
+                </button>
+            </td>
+        </tr>
+    {{/if}}
+</template>

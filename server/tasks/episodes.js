@@ -91,7 +91,6 @@ automaticSearchEpisode = function(episodeId) {
             + ' Episode ' + episode.number
             + ' found but will still be searching for cutoff quality.'
         );
-        return candidate;
     } else {
         Meteor.call(
             'log',
@@ -111,15 +110,14 @@ automaticSearchEpisode = function(episodeId) {
             + ' Season ' + episode.season_number
             + ' Episode ' + episode.number
         );
-        Episodes.update(episode._id, {$set: {status: 'downloading'}});
-
-        return candidate;
     }
+
+    Meteor.call('createJob', 'downloadCandidate', {candidate: candidate.toObject()});
 }
 
 
 setEpisodesStatuses = function() {
-    var searchableEpisodes = Episodes.find({status: {$ne: 'downloaded'}});
+    var searchableEpisodes = Episodes.find({status: {$in: [null, 'aired', 'unaired']}});
     searchableEpisodes.forEach(function(episode) {
         if (!episode.air_date_utc) {
             return false;
@@ -131,6 +129,8 @@ setEpisodesStatuses = function() {
             } else {
                 Episodes.update(episode._id, {$set: {status: 'aired'}});
             }
+        } else {
+            Episodes.update(episode._id, {$set: {status: 'unaired'}});
         }
     });
 }

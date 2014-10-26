@@ -4,7 +4,8 @@ Package.describe({
 });
 
 Npm.depends({
-    'sabnzbd': '0.2.1'
+    'sabnzbd': '0.2.1',
+    'q': '1.0.1'
 });
 
 Package.onUse(function(api) {
@@ -22,9 +23,12 @@ Package.onUse(function(api) {
   // Collections
   api.addFiles('collections.js');
   api.export('Downloaders');
+  api.export('Downloads');
 
   // Resources
   api.addFiles('resources/test.js');
+  api.addFiles('resources/download_data.js');
+  api.export('DownloadData', 'server');
 
   // Implementations
   api.addFiles('downloaders/implementations.js');

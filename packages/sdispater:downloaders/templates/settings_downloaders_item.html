@@ -23,7 +23,7 @@
                             <h4 class="modal-title">Edit Downloader {{name}}</h4>
                         </div>
                         <div class="modal-body">
-                            <form id="downloader-{{_id}}" class="form form-horizontal downloader-form" data-indexer="{{_id}}">
+                            <form id="downloader-{{_id}}" class="form form-horizontal downloader-form" data-downloader="{{_id}}">
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">
                                         Name
@@ -74,10 +74,10 @@
                         </div>
                         <div class="modal-footer">
                             <div class="pull-left">
-                                <button type="button" class="btn btn-danger x-delete-indexer" data-indexer="{{_id}}">Delete</button>
+                                <button type="button" class="btn btn-danger x-delete-downloader" data-downloader="{{_id}}">Delete</button>
                             </div>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-info x-edit-test-downloader" data-indexer="{{_id}}">Test</button>
+                            <button type="button" class="btn btn-info x-edit-test-downloader" data-downloader="{{_id}}">Test</button>
                         </div>
                     </div>
                 </div>
