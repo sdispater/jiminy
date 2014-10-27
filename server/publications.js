@@ -28,7 +28,6 @@ Meteor.publish('profiles', function() {
     return Profiles.find();
 });
 
-
 // Notifications
 Meteor.publish('notifications', function() {
     return Notifications.find({}, {sort: {created_at: -1}});

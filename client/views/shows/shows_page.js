@@ -14,6 +14,12 @@ Template.showsPage.helpers({
     },
     profile: function() {
         return Profiles.findOne(this.profile_id);
+    },
+    availableProfiles: function() {
+        var self = this;
+        return Profiles.find({}, {$sort: {_id: -1}}).map(function(p) {
+            return _.extend(p, {isCurrentProfile: p._id == self.profile_id });
+        });
     }
 });
 
@@ -26,6 +32,23 @@ Template.showsPage.events({
 
         Meteor.call('createJob', 'updateShow', {show_id: showId}, function(err) {
             Meteor.call('notify', 'Updating show <strong>' + show.name + '</strong>', 'success');
+        });
+    },
+    'click .x-edit-show': function(e) {
+        var button = $(e.target);
+        var showId = button.data('show-id');
+        var form = button.closest('.modal-footer').prev('.modal-body').children('form').first();
+        var formData = form.serializeArray()
+        var showData = {}
+        for (var i in formData) {
+            var data = formData[i];
+            showData[data.name] = data.value;
+        }
+
+        Meteor.call('updateShow', showId, showData, function(err) {
+            if (err) {
+                notify(err.message, 'error');
+            }
         });
     }
 });
