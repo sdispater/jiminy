@@ -1,8 +1,16 @@
 downloadCandidate = function(candidate) {
-    var proposition = candidate.proposition;
-    var downloaders = Downloaders.find({enabled: true});
+    Meteor.call(
+        'log',
+        'Episode Download',
+        'info',
+        'Processing candidate ' + candidate.proposition.title
+    )
 
-    if (downloaders.count() == 0) {
+    var proposition = candidate.proposition;
+    var episode = Episodes.findOne(proposition.episode._id);
+    var downloaders = Downloaders.find({enabled: true}).fetch();
+
+    if (downloaders.length == 0) {
         return Meteor.call(
             'log',
             'Episode Download',
@@ -13,19 +21,24 @@ downloadCandidate = function(candidate) {
 
     var download;
 
-    downloaders.forEach(function(_downloader) {
+    for (var i in downloaders) {
+        var _downloader = downloaders[i];
         var downloader = new Downloader(_downloader.implementation, _downloader.settings);
-        if (!downloader.supports(proposition) || download) {
-            return false;
+        if (!downloader.supports(proposition)) {
+            continue;
         }
 
         var downloadData = downloader.add(proposition);
         if (downloadData) {
-            download = downloadData.createDownload(_downloader._id);
-        } else {
-            return false
+            if (episode.downloadId) {
+                download = downloadData.updateDownload(Downloads.findOne(episode.downloadId), _downloader, proposition);
+                break;
+            } else {
+                download = downloadData.createDownload(_downloader, proposition);
+                break;
+            }
         }
-    });
+    }
 
     if (!download) {
         return Meteor.call(
@@ -33,15 +46,22 @@ downloadCandidate = function(candidate) {
             'Episode Download',
             'error',
             'Unable to download proposition. Check if the downloaders are properly configured and supports\
-             ' + proposition.type + ' propositions'
+             ' + proposition.implementation + ' propositions'
         )
     }
+
+    Meteor.call(
+        'log',
+        'Episode Download',
+        'info',
+        'Candidate ' + candidate.proposition.title + ' sent to downloader ' + downloader.implementation.name
+    )
 
     Episodes.update(proposition.episode._id, {$set: {downloadId: download._id}});
 }
 
 updateDownloads = function() {
-    var downloads = Downloads.find({status: {$nin: ['done', 'failed']}});
+    var downloads = Downloads.find({status: {$nin: ['done', 'failed', 'cancelled']}});
 
     console.log(downloads.count() + ' downloads to update');
 
@@ -49,19 +69,46 @@ updateDownloads = function() {
         var _downloader = Downloaders.findOne(download.downloaderId);
         var downloader = new Downloader(_downloader.implementation, _downloader.settings);
         try {
-            console.log(download.externalId);
             var downloadData = downloader.get(download);
             if (downloadData) {
-                Downloads.update(download._id, {$set: downloadData.toObject()});
+                downloadData.updateDownload(download, _downloader);
             } else {
                 Downloads.remove(download._id);
-                Episodes.update({downloadId: download._id}, {$set: {status: 'canceled'}});
+                Episodes.update({downloadId: download._id}, {$set: {status: 'cancelled'}});
                 return false;
             }
         } catch(err) {
             return Meteor.call('log', 'Episode Download', 'error', err.message);
         }
 
-        Episodes.update({downloadId: download._id}, {$set: {status: downloadData.status}});
+        // Download has failed, therefore we blacklist the proposition
+        if (downloadData.status == 'failed') {
+            var proposition = download.proposition;
+            Downloads.update(download._id, {$set: {proposition: null}, $addToSet: {blacklist: proposition}});
+            Meteor.call(
+                'log',
+                'Episode Download',
+                'error',
+                'Could not download ' + proposition.title + '. The episode will be reset to wanted to try another release.'
+            )
+            Meteor.call(
+                'notify',
+                'Could not download ' + proposition.title,
+                'error',
+                'The episode will be reset to wanted to try another release.'
+            )
+        }
+
+        Episodes.update(download.episodeId, {$set: {status: downloadData.status}});
+    });
+}
+
+retryFailedDownloads = function() {
+    var failedEpisodes = Episodes.find({status: 'failed'});
+
+    console.log(failedEpisodes.count() + ' episodes to retry');
+
+    failedEpisodes.forEach(function(episode) {
+        Episodes.update(episode._id, {$set: {status: 'wanted'}});
     });
 }

@@ -16,7 +16,7 @@ Newznab.prototype.init = function(settings) {
     this.apiKey = settings.api_key;
 };
 
-Newznab.prototype.searchEpisode = function(episode, show, maxAge) {
+Newznab.prototype.searchEpisode = function(episode, show, maxAge, blacklist) {
     if (!show.name && !show.tvrage_id) {
         throw new Error('One of "q" or "tvRageId" must be specified"')
     }
@@ -47,6 +47,9 @@ Newznab.prototype.searchEpisode = function(episode, show, maxAge) {
         items.push(this.processItem(response.body.rss.channel[0].item[i], episode));
     }
 
+    if (blacklist && blacklist.length) {
+        return this.applyBlacklist(items, blacklist);
+    }
     return items;
 }
 
@@ -57,11 +60,25 @@ Newznab.prototype.test = function() {
 };
 
 Newznab.prototype.processItem = function(entry, episode) {
-    var title, date, link;
+    var title, date, link, externalId;
 
     title = entry.title[0];
     link = entry.link[0];
     date = entry.pubDate[0];
+    externalId = entry.guid[0]._.replace(/.*\/details\/(.*)/, '$1');
 
-    return new Proposition(episode, title, link, date, 'usenet');
+    return new Proposition(externalId, 'newznab', episode, title, link, date);
+};
+
+Newznab.prototype.applyBlacklist = function(propositions, blacklist) {
+    return propositions.filter(function(proposition) {
+        for (var i in blacklist) {
+            var blacklisted = blacklist[i];
+            if (proposition.implementation == blacklisted.implementation && proposition.id == blacklisted.id) {
+                return false;
+            }
+        }
+
+        return true;
+    });
 };

@@ -2,6 +2,10 @@ var _SABnzbd = function(settings) {
     this.init(settings);
 }
 
+_SABnzbd.supportedPropositions = [
+    'newznab'
+]
+
 _SABnzbd.definition = {
     name: 'SABnzbd',
     id: 'sabnzbd',
@@ -62,7 +66,7 @@ _SABnzbd.prototype.test = function() {
 }
 
 _SABnzbd.prototype.supports = function(proposition) {
-    return proposition.type == 'usenet';
+    return _SABnzbd.supportedPropositions.indexOf(proposition.implementation) >= 0;
 }
 
 _SABnzbd.prototype.add = function(proposition) {
@@ -94,7 +98,12 @@ _SABnzbd.prototype.addUrl = function(url, name) {
                     var entry = entries[i];
                     var entryName = entry.name;
                     if (entryName == name || entryName == url) {
-                        return new DownloadData(entry.nzbid, entry.size, entry.downloaded, entry.status);
+                        return {
+                            id: entry.nzbid,
+                            size: entry.size,
+                            downloaded: entry.size - entry.size_left,
+                            status: entry.status
+                        }
                     }
                 }
             })
@@ -111,7 +120,12 @@ _SABnzbd.prototype.get = function(download) {
                 for (var i in entries) {
                     var entry = entries[i];
                     if (entry.nzbid == download.externalId) {
-                        return new DownloadData(entry.nzbid, entry.size, entry.size - entry.size_left, entry.status);
+                        return {
+                            id: entry.nzbid,
+                            size: entry.size,
+                            downloaded: entry.size - entry.size_left,
+                            status: entry.status
+                        }
                     }
                 }
             })

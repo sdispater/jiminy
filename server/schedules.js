@@ -45,3 +45,15 @@ SyncedCron.add({
         return 'Download Updated';
     }
 });
+
+SyncedCron.add({
+    name: 'Retry Failed Downloads',
+    schedule: function(parser) {
+        return parser.text('every 10 seconds');
+    },
+    job: function() {
+        retryFailedDownloads();
+
+        return 'Failed Downloads Retried';
+    }
+});

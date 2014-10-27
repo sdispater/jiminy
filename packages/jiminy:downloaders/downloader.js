@@ -13,7 +13,8 @@ Downloader.prototype.init = function(implementation, settings) {
         }
     }
 
-    this.downloaderClass = DownloadersImplementations.getClass(implementation);
+    this.implementation = DownloadersImplementations.get(implementation);
+    this.downloaderClass = this.implementation.class;
     this.downloader = new this.downloaderClass(downloaderSettings);
 }
 
@@ -22,7 +23,8 @@ Downloader.prototype.status = function() {
 }
 
 Downloader.prototype.add = function(proposition) {
-    return this.downloader.add(proposition);
+    var data = this.downloader.add(proposition);
+    return new DownloadData(data.id, data.size, data.downloaded, data.status, proposition, this.implementation.id);
 }
 
 Downloader.prototype.addUrl = function(url) {
@@ -30,7 +32,9 @@ Downloader.prototype.addUrl = function(url) {
 }
 
 Downloader.prototype.get = function(download) {
-    return this.downloader.get(download);
+    var data = this.downloader.get(download);
+
+    return new DownloadData(data.id, data.size, data.downloaded, data.status, download.proposition, this.implementation.id);
 }
 
 Downloader.prototype.test = function() {

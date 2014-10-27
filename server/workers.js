@@ -83,6 +83,7 @@ var refreshShowsWorker = Job.processJobs('queue', 'refreshShows', function(job, 
 });
 
 var automaticSearchEpisodeWorker = Job.processJobs('queue', 'automaticSearchEpisode', function(job, cb) {
+    console.log('automaticSearchEpisode');
     try {
         automaticSearchEpisode(job.data.episodeId);
 
@@ -130,8 +131,9 @@ var searchWantedEpisodesDownloadsWorker = Job.processJobs('queue', 'searchWanted
 });
 
 var downloadCandidateWorker = Job.processJobs('queue', 'downloadCandidate', function(job, cb) {
+    console.log('downloadCandidate');
     try {
-        downloadCandidate(job.data.candidate);
+        downloadCandidate(job.data.candidate, job.data.episodeId);
 
         job.done(function(err) {
             if (err) {

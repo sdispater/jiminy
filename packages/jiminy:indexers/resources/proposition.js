@@ -1,12 +1,12 @@
 var moment = Npm.require('moment');
 
-Proposition = function(episode, title, link, date, type) {
-    this.id = this.generateId();
+Proposition = function(id, implementation, episode, title, link, date) {
+    this.id = id;
     this.episode = episode;
     this.title = title;
     this.link = link;
     this.date = date ? moment(date) : null;
-    this.type = type;
+    this.implementation = implementation;
 }
 
 Proposition.prototype.toObject = function() {
@@ -16,10 +16,6 @@ Proposition.prototype.toObject = function() {
         title: this.title,
         link: this.link,
         date: this.date,
-        type: this.type
+        implementation: this.implementation
     }
-}
-
-Proposition.prototype.generateId = function() {
-    return '_' + Math.random().toString(36).substr(2, 9);
 }

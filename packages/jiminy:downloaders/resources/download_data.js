@@ -1,23 +1,49 @@
-DownloadData = function(externalId, size, downloaded, status) {
+DownloadData = function(externalId, size, downloaded, status, proposition, implementation) {
     this.externalId = externalId;
     this.size = size;
     this.downloaded = downloaded ? downloaded : 0;
     this.status = this.normalizeStatus(status);
+    this.proposition = proposition;
+    this.implementation = implementation;
 }
 
-DownloadData.prototype.createDownload = function(downloaderId) {
+DownloadData.prototype.createDownload = function(downloader) {
     var data = {
-        downloaderId: downloaderId,
+        downloaderId: downloader._id,
         externalId: this.externalId,
+        episodeId: this.proposition.episode._id,
         size: this.size,
         downloaded: this.downloaded,
         percent: this.downloaded / this.size * 100,
-        status: this.status
+        status: this.status,
+        proposition: this.proposition,
+        implementation: this.implementation
     }
 
     var downloadId = Downloads.insert(data);
 
     return Downloads.findOne(downloadId);
+}
+
+DownloadData.prototype.updateDownload = function(download, downloader) {
+    if (!download) {
+        return this.createDownload(downloader);
+    }
+    var data = {
+        downloaderId: downloader._id,
+        externalId: this.externalId,
+        episodeId: this.proposition.episode._id,
+        size: this.size,
+        downloaded: this.downloaded,
+        percent: this.downloaded / this.size * 100,
+        status: this.status,
+        proposition: this.proposition,
+        implementation: this.implementation
+    }
+
+    Downloads.update(download._id, {$set: data});
+
+    return Downloads.findOne(download._id);
 }
 
 DownloadData.prototype.toObject = function() {
@@ -26,7 +52,9 @@ DownloadData.prototype.toObject = function() {
         size: this.size,
         downloaded: this.downloaded,
         percent: this.downloaded / this.size * 100,
-        status: this.status
+        status: this.status,
+        proposition: this.proposition,
+        implementation: this.implementation
     }
 }
 

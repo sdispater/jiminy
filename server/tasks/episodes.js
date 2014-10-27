@@ -1,5 +1,7 @@
 automaticSearchEpisode = function(episodeId) {
     var episode = Episodes.findOne(episodeId);
+    Episodes.update(episode._id, {$set: {status: 'searching'}});
+    var download = Downloads.findOne(episode.downloadId);
     var show = Shows.findOne(episode.show_id);
 
     Meteor.call(
@@ -16,11 +18,11 @@ automaticSearchEpisode = function(episodeId) {
     var profile = Profiles.findOne(show.profile_id);
     var cutoff = Quality.findById(profile.cutoff);
     var qualities = profile.qualities.map(function(q) {return Quality.findById(q)});
-    var propositions = []
+    var propositions = [];
 
     indexers.forEach(function(indexer) {
         var usenetIndexer = new Indexer(indexer.implementation, indexer.settings);
-        var res = usenetIndexer.searchEpisode(episode, show, 1000);
+        var res = usenetIndexer.searchEpisode(episode, show, 1000, download ? download.blacklist : null);
 
         _.extend(propositions, res);
     });
@@ -83,7 +85,7 @@ automaticSearchEpisode = function(episodeId) {
         );
         Meteor.call(
             'notify',
-            'Episode Found',
+            'Found ' + candidate.proposition.title,
             'info',
             'Valid candidate (' + candidate.proposition.title + ') for '
             + show.name
@@ -103,7 +105,7 @@ automaticSearchEpisode = function(episodeId) {
         );
         Meteor.call(
             'notify',
-            'Episode Found',
+            'Found ' + candidate.proposition.title,
             'success',
             'Valid candidate (' + candidate.input + ') found for '
             + show.name
@@ -112,7 +114,7 @@ automaticSearchEpisode = function(episodeId) {
         );
     }
 
-    Meteor.call('createJob', 'downloadCandidate', {candidate: candidate.toObject()});
+    Meteor.call('createJob', 'downloadCandidate', {candidate: candidate.toObject(), episodeId: episode._id});
 }
 
 
@@ -139,7 +141,6 @@ searchWantedEpisodesDownloads = function(options) {
     options = _.extend({status: 'wanted'}, options);
 
     var wantedEpisodes = Episodes.find(options, {$sort: {number: 1}});
-    console.log(wantedEpisodes.count());
     wantedEpisodes.forEach(function(episode) {
         try {
             Meteor.call('createJob', 'automaticSearchEpisode', {episodeId: episode._id});

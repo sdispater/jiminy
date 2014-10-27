@@ -3,15 +3,19 @@ var _Implementations = function() {
 }
 
 _Implementations.prototype.get = function(implementation) {
-    return this.implementations[implementation];
+    var definition = this.implementations[implementation];
+    if (!definition) {
+        throw new Error('Invalid implementation')
+    }
+
+    return definition;
 }
 
 _Implementations.prototype.getClass = function(implementation) {
-    return this.implementations[implementation].class;
+    return this.get(implementation).class
 }
 
 _Implementations.prototype._register = function(downloaderClass, onlyDefinition) {
-    console.log(downloaderClass);
     var definition = downloaderClass.definition;
     if (!onlyDefinition) {
         definition.class = downloaderClass;

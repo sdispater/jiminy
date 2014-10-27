@@ -17,8 +17,8 @@ Indexer.prototype.init = function(implementation, settings) {
     this.indexer = new this.indexerClass(indexerSettings);
 }
 
-Indexer.prototype.searchEpisode = function(episode, show, maxAge) {
-    return this.indexer.searchEpisode(episode, show, maxAge);
+Indexer.prototype.searchEpisode = function(episode, show, maxAge, blacklist) {
+    return this.indexer.searchEpisode(episode, show, maxAge, blacklist);
 }
 
 Indexer.prototype.test = function() {
