@@ -1,6 +1,8 @@
 automaticSearchEpisode = function(episodeId) {
+    console.log('automaticSearchEpisode'.blue);
     var episode = Episodes.findOne(episodeId);
-    Episodes.update(episode._id, {$set: {status: 'searching'}});
+    var oldStatus = episode.status;
+    Episodes.update(episode._id, {$set: {status: 'pending'}});
     var download = Downloads.findOne(episode.downloadId);
     var show = Shows.findOne(episode.show_id);
 
@@ -44,6 +46,8 @@ automaticSearchEpisode = function(episodeId) {
     }
 
     if (!candidates.length) {
+        Episodes.update(episode._id, {$set: {status: oldStatus}});
+
         return Meteor.call(
             'log',
             'Episode Search',
@@ -119,8 +123,9 @@ automaticSearchEpisode = function(episodeId) {
 
 
 downloadRelease = function(episodeId, releaseId, indexerId) {
+    console.log('downloadRelease'.blue);
     var episode = Episodes.findOne(episodeId);
-    Episodes.update(episode._id, {$set: {status: 'searching'}});
+    Episodes.update(episode._id, {$set: {status: 'pending'}});
     var download = Downloads.findOne(episode.downloadId);
     var indexer = Indexers.findOne(indexerId);
     var show = Shows.findOne(episode.show_id);
@@ -164,7 +169,8 @@ downloadRelease = function(episodeId, releaseId, indexerId) {
 
 
 setEpisodesStatuses = function() {
-    var searchableEpisodes = Episodes.find({status: {$in: [null, 'aired', 'unaired']}});
+    console.log('setEpisodesStatuses'.blue);
+    var searchableEpisodes = Episodes.find({monitored: true, status: {$in: [null, 'aired', 'unaired']}});
     searchableEpisodes.forEach(function(episode) {
         if (!episode.air_date_utc) {
             return false;
@@ -183,6 +189,7 @@ setEpisodesStatuses = function() {
 }
 
 searchWantedEpisodesDownloads = function(options) {
+    console.log('searchWantedEpisodesDownloads'.blue);
     options = _.extend({status: 'wanted'}, options);
 
     var wantedEpisodes = Episodes.find(options, {$sort: {number: 1}});

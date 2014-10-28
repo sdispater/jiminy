@@ -83,7 +83,6 @@ var refreshShowsWorker = Job.processJobs('queue', 'refreshShows', function(job, 
 });
 
 var automaticSearchEpisodeWorker = Job.processJobs('queue', 'automaticSearchEpisode', function(job, cb) {
-    console.log('automaticSearchEpisode');
     try {
         automaticSearchEpisode(job.data.episodeId);
 
@@ -93,7 +92,8 @@ var automaticSearchEpisodeWorker = Job.processJobs('queue', 'automaticSearchEpis
             }
         });
     } catch (err) {
-        console.log(err);
+        console.log('automaticSearchEpisode Failed'.red);
+        console.log(err.message.red);
         job.fail(err.message)
 
         return Meteor.call(
@@ -131,7 +131,6 @@ var searchWantedEpisodesDownloadsWorker = Job.processJobs('queue', 'searchWanted
 });
 
 var downloadCandidateWorker = Job.processJobs('queue', 'downloadCandidate', function(job, cb) {
-    console.log('downloadCandidate');
     try {
         downloadCandidate(job.data.candidate, job.data.episodeId);
 
@@ -141,7 +140,8 @@ var downloadCandidateWorker = Job.processJobs('queue', 'downloadCandidate', func
             }
         });
     } catch (err) {
-        console.log(err);
+        console.log('downloadCandidate failed'.red);
+        console.log(err.message.red);
         job.fail(err.message)
 
         return Meteor.call(

@@ -14,6 +14,7 @@ var getShowSummary = function(tvdbId) {
 }
 
 addShow = function(data) {
+    console.log('addShow'.blue);
     Meteor.call('log', 'Shows', 'info', 'Processing show ' + data.title);
 
     var tvdbId = data.tvdb_id;
@@ -182,6 +183,7 @@ addShow = function(data) {
 }
 
 updateShow = function(show) {
+    console.log('updateShow'.blue);
     try {
         Shows.update(show._id, {$set: {ready: false}});
     } catch (err) {
@@ -328,6 +330,7 @@ updateShow = function(show) {
 
 
 refreshShows = function() {
+    console.log('refreshShows'.blue);
     Meteor.call('log', 'Shows', 'info', 'Refreshing shows information');
     var shows = Shows.find({ready: true});
     shows.forEach(function(show) {

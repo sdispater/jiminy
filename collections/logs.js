@@ -9,6 +9,17 @@ Meteor.methods({
             description: description
         };
 
+        var message = '[' + category + '] ' + description;
+        if (type == 'info') {
+            console.log(message.blue);
+        } else if (type == 'warning') {
+            console.log(message.yellow);
+        } else if (type == 'error') {
+            console.log(message.red);
+        } else if (type == 'success') {
+            console.log(message.green);
+        }
+
         Logs.insert(options);
     },
     logError: function(category, error) {

@@ -1,4 +1,6 @@
 downloadCandidate = function(candidate) {
+    console.log('downloadCandidate'.blue);
+
     Meteor.call(
         'log',
         'Episode Download',
