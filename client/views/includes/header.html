@@ -1,48 +1,47 @@
 <template name="header">
     <header class="navbar">
-        <div id="menu" class="navbar-inner">
-            <div class="menu-block">
-            </div>
+        <div class="navbar-inner">
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li>
+                        <form class="form form-horizontal">
+                            <input class="form-control search-input" type="text" placeholder="Search" />
+                        </form>
+                    </li>
+                </ul>
 
-            <div class="menu-block right">
+                <ul class="nav pull-right">
+                    <li>
+                        {{> notificationsMenu}}
+                    </li>
+                </ul>
 
-                <a href="{{pathFor 'showsList'}}" class="menu-option uppercase">
-                    <i class="fa fa-play"></i>
-                    Series
-                </a>
-                <a id="btn-signup" class="menu-option uppercase">
-                    <i class="fa fa-calendar"></i>
-                    Calendar
-                </a>
-                <a id="btn-login" class="menu-option uppercase">
-                    <i class="fa fa-history"></i>
-                    History
-                </a>
-                <a href="{{pathFor 'settingsPage'}}" class="menu-option uppercase">
-                    <i class="fa fa-cog"></i>
-                    Settings
-                </a>
-
-            </div>
-
-            <div class="menu-block">
-                {{> notificationsMenu}}
-            </div>
-
-            <div class="menu-block search" style="padding-left: 10px;">
-                <div class="input-group">
-
-                    <input class="form-control search-input" type="text" />
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary btn-search" type="button">
-                            <i class="fa fa-fw fa-search"></i>
-                        </button>
-                    </span>
-
-                </div>
-            </div>
-
-            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li>
+                    <a href="{{pathFor 'showsList'}}" class="uppercase">
+                        <i class="fa fa-play"></i>
+                        Series
+                    </a>
+                    </li>
+                    <li>
+                    <a id="btn-signup" class="uppercase">
+                        <i class="fa fa-calendar"></i>
+                        Calendar
+                    </a>
+                    </li>
+                    <li>
+                    <a id="btn-login" class="uppercase">
+                        <i class="fa fa-history"></i>
+                        History
+                    </a>
+                    </li>
+                    <li>
+                    <a href="{{pathFor 'settingsPage'}}" class="uppercase">
+                        <i class="fa fa-cog"></i>
+                        Settings
+                    </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </header>

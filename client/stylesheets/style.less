@@ -45,34 +45,51 @@ header.navbar {
 }
 
 // Menu
-#menu {
-  display: table;
-  height: 100%;
-  margin: auto;
-  max-width: 1900px;
-  width: 90%;
+header.navbar {
+  // Nav
+  .nav {
+    position: relative;
+    left: 0px;
+    margin: 0px 10px 0px 0px;
+    display: block;
+    float: left;
+  }
 
-  .menu-block {
-    vertical-align: middle;
-    display: table-cell;
-    text-align: right;
+  .nav > li {
+    float: left;
+    font-size: 12px;
+    line-height: 24px;
 
-    .menu-option {
-      display: inline-block;
-      position: relative;
-      font-weight: 700;
-      font-size: 12px;
-      margin-left: 15px;
-      border-right: 1px solid #E0E0E0;
-      padding-right: 15px;
+    a, a:link, a:visited {
+      color: #A5A5A5;
+      cursor: pointer;
+      background: none;
 
-      i {
+      i.fa {
         margin-right: 5px;
       }
     }
 
-    .menu-option:last-child {
-      border-right: 0;
+    a:focus, a:hover {
+      text-decoration: underline;
+    }
+  }
+  .nav > li > a {
+    padding: 15px 15px;
+    font-weight: 700;
+  }
+
+  .form-control.search-input {
+    margin-top: 10px;
+    width: 400px;
+    color: @light-color;
+  }
+
+  .notification-toggle {
+    margin-top: 15px;
+
+    a {
+      padding: 15px;
     }
   }
 }
@@ -415,7 +432,7 @@ header.navbar {
   border-top: 1px solid #E7EAEC;
   line-height: 1.42857;
   padding: 10px 8px;
-  vertical-align: top;
+  vertical-align: middle;
 }
 
 .table > thead > tr > th:first-of-type,

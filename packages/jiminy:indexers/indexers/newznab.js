@@ -53,6 +53,19 @@ Newznab.prototype.searchEpisode = function(episode, show, maxAge, blacklist) {
     return items;
 }
 
+Newznab.prototype.searchRelease = function(releaseId, episode, show, maxAge, blacklist) {
+    var propositions = this.searchEpisode(episode, show, maxAge, blacklist);
+
+    for (var i in propositions) {
+        var proposition = propositions[i];
+        if (proposition.id == releaseId) {
+            return proposition
+        }
+    }
+
+    return null;
+}
+
 Newznab.prototype.test = function() {
     this.requester.request(this.url, {t: 'search', q: 'something', apikey: this.apiKey});
 

@@ -13,12 +13,17 @@ Indexer.prototype.init = function(implementation, settings) {
         }
     }
 
-    this.indexerClass = new IndexersImplementations().implementations[implementation].class;
+    this.implementation = new IndexersImplementations().implementations[implementation];
+    this.indexerClass = this.implementation.class;
     this.indexer = new this.indexerClass(indexerSettings);
 }
 
 Indexer.prototype.searchEpisode = function(episode, show, maxAge, blacklist) {
     return this.indexer.searchEpisode(episode, show, maxAge, blacklist);
+}
+
+Indexer.prototype.searchRelease = function(releaseId, episode, show, maxAge, blacklist) {
+    return this.indexer.searchRelease(releaseId, episode, show, maxAge, blacklist);
 }
 
 Indexer.prototype.test = function() {

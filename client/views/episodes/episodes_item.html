@@ -17,7 +17,7 @@
                     <span class="pull-right tip fa fa-info-circle tip-overview"
                           data-toggle="tooltip" data-placement="right" title="{{overview}}"></span>
                 {{/if}}
-                <div class="modal fade" id="modal-episode-{{_id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade modal-episode" id="modal-episode-{{_id}}" data-episode="{{_id}}" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -55,14 +55,16 @@
                                                             Name
                                                         </th>
                                                         <th>Quality</th>
+                                                        <th>Origin</th>
                                                         <th>
                                                             Status
                                                         </th>
+                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                         {{#each releases}}
-                                            <tr>
+                                            <tr data-release="{{proposition.id}}" data-name="{{proposition.title}}" data-indexer="{{proposition.indexer._id}}">
                                                 <td>
                                                     {{proposition.title}}
                                                 </td>
@@ -72,16 +74,36 @@
                                                     </span>
                                                 </td>
                                                 <td>
+                                                    <span class="label label-warning">
+                                                        {{proposition.indexer.name}}
+                                                    </span>
+                                                </td>
+                                                <td>
                                                     <i class="fa fa-circle-o monitored {{status}}" title="{{statusLabel}}"></i>
+                                                </td>
+                                                <td>
+                                                    {{#if eq status 'pending'}}
+                                                    <button class="btn btn-unstyled btn-xs x-download-release">
+                                                        <i class="fa fa-download"></i>
+                                                    </button>
+                                                    {{/if}}
                                                 </td>
                                             </tr>
                                         {{/each}}
                                                 </tbody>
                                             </table>
                                         {{else}}
-                                        <p class="default-message">
-                                            Searching releases
-                                        </p>
+                                            {{#if searchingReleases}}
+                                                <div class="spinner">
+                                                    <div class="bounce1"></div>
+                                                    <div class="bounce2"></div>
+                                                    <div class="bounce3"></div>
+                                                </div>
+                                            {{else}}
+                                                <p class="default-message">
+                                                    No releases found
+                                                </p>
+                                            {{/if}}
                                         {{/if}}
                                     </div>
                                 </div>
@@ -111,9 +133,14 @@
                 {{/if}}
             </td>
             <td class="actions-cell">
-                <button class="btn btn-default btn-xs x-search-episode" title="Automatic search">
-                    <i class="fa fa-search"></i>
-                </button>
+                <div class="btn-group btn-group-collapse">
+                    <button class="btn btn-default btn-xs x-search-episode" title="Automatic search">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <button class="btn btn-default btn-xs x-display-releases" title="Manual search">
+                        <i class="fa fa-user"></i>
+                    </button>
+                </div>
             </td>
         </tr>
     {{/if}}

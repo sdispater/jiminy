@@ -1,3 +1,4 @@
+// Popovers
 .popover {
   border-radius: 3px;
   border: medium none;
@@ -19,6 +20,8 @@
   text-align: center;
 }
 
+
+// Tooltips
 .tooltip-inner {
   background-color: #2F4050;
 }
@@ -51,6 +54,12 @@
 }
 
 // Modals
+.modal-dialog {
+  min-width: 600px;
+  width: auto;
+  max-width: 60%;
+}
+
 .modal-content {
   padding: 15px;
   background-color: #FFF;
@@ -307,8 +316,9 @@
 }
 
 // Buttons
-.btn.btn-unstyled {
-  color: @base-color;
+.btn.btn-unstyled,
+.btn.btn-unstyled:focus {
+  color: @light-color;
   border: 0;
   background: transparent;
 }

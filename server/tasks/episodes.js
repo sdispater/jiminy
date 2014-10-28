@@ -33,7 +33,7 @@ automaticSearchEpisode = function(episodeId) {
         var guesser = new Guesser();
         // Checking validity
         var guess = guesser.guess(proposition);
-        if (guess && guess.quality) {
+        if (guess && guess.quality && guess.season == episode.season_number && guess.episode == episode.number) {
             for (var j in qualities) {
                 var quality = qualities[j];
                 if (guess.quality.eq(quality)) {
@@ -115,6 +115,51 @@ automaticSearchEpisode = function(episodeId) {
     }
 
     Meteor.call('createJob', 'downloadCandidate', {candidate: candidate.toObject(), episodeId: episode._id});
+}
+
+
+downloadRelease = function(episodeId, releaseId, indexerId) {
+    var episode = Episodes.findOne(episodeId);
+    Episodes.update(episode._id, {$set: {status: 'searching'}});
+    var download = Downloads.findOne(episode.downloadId);
+    var indexer = Indexers.findOne(indexerId);
+    var show = Shows.findOne(episode.show_id);
+
+    Meteor.call(
+        'log',
+        'Episode Search',
+        'info',
+        'Searching for release ' + releaseId + ' for '
+        + show.name
+        + ' Season ' + episode.season_number
+        + ' Episode ' + episode.number
+    );
+
+    var usenetIndexer = new Indexer(indexer.implementation, indexer.settings);
+    var proposition = usenetIndexer.searchRelease(releaseId, episode, show, 1000, download ? download.blacklist : null);
+
+    if (!proposition) {
+        var message = 'No release could be found for id ' + releaseId;
+
+        Meteor.call('notify', message, 'error');
+        Meteor.call('log', 'Episode Search', 'error', message);
+
+        return false;
+    }
+
+    var guess = new Guesser().guess(proposition);
+    var validGuess = guess && guess.season == episode.season_number && guess.episode == episode.number;
+
+    if (!validGuess) {
+        var message = 'The release ' + releaseId + ' does not match the episode.';
+
+        Meteor.call('notify', message, 'error');
+        Meteor.call('log', 'Episode Search', 'error', message);
+
+        return false;
+    }
+
+    Meteor.call('createJob', 'downloadCandidate', {candidate: guess.toObject(), episodeId: episode._id});
 }
 
 
