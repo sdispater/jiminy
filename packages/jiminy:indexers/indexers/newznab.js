@@ -73,14 +73,28 @@ Newznab.prototype.test = function() {
 };
 
 Newznab.prototype.processItem = function(entry, episode) {
-    var title, date, link, externalId;
+    var title, date, link, externalId, options;
 
     title = entry.title[0];
     link = entry.link[0];
     date = entry.pubDate[0];
     externalId = entry.guid[0]._.replace(/.*\/details\/(.*)/, '$1');
 
-    return new Proposition(externalId, 'newznab', episode, title, link, date);
+    options = {
+        title: title,
+        link: link,
+        date: date,
+        url: entry.guid[0]._
+    }
+
+    for (var i in entry['newznab:attr']) {
+        var attr = entry['newznab:attr'][i].$;
+        if (attr.name == 'size') {
+            options['size'] = parseInt(attr.value);
+        }
+    }
+
+    return new Proposition(externalId, 'newznab', episode, options);
 };
 
 Newznab.prototype.applyBlacklist = function(propositions, blacklist) {

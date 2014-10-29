@@ -21,7 +21,12 @@ if (Meteor.isServer) {
 
             indexers.forEach(function (indexer) {
                 var usenetIndexer = new Indexer(indexer.implementation, indexer.settings);
-                var res = usenetIndexer.searchEpisode(episode, show, 1000);
+                try {
+                    var res = usenetIndexer.searchEpisode(episode, show, 1000);
+                } catch (err) {
+                    return Meteor.call('log', 'Releases search', 'error',
+                        'An error occurred while contacting ' + indexer.name + ' (' + err.message + ')');
+                }
                 res = res.map(function (r) {
                     r.indexer = indexer;
                     return r;

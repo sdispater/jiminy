@@ -69,6 +69,13 @@ UI.registerHelper('in', function(list, value) {
     return list.indexOf(value) >= 0;
 });
 
+UI.registerHelper('humanSize', function(size, unit) {
+    size = parseInt(size);
+    var i = Math.floor( Math.log(size) / Math.log(1024) );
+
+    return ( size / Math.pow(1024, i) ).toFixed(2) + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
+});
+
 
 // Validation forms
 UI.registerHelper('hasError', function(validated, name) {
