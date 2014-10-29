@@ -187,9 +187,7 @@ updateShow = function(show) {
     try {
         Shows.update(show._id, {$set: {ready: false}});
     } catch (err) {
-        job.fail(err.message);
-
-        return Meteor.call('log', 'Shows', 'error', 'An error occurred while updating show ' + show.name);
+        return Meteor.call('log', 'Shows', 'error', 'An error occurred while updating show ' + show.name + ' (' + err.message + ')');
     }
 
     try {
@@ -319,6 +317,7 @@ updateShow = function(show) {
             updateOptions['next_airing'] = nextEpisode.air_date
         }
         Shows.update(show._id, {$set: updateOptions});
+        Meteor.call('log', 'Shows', 'info', 'Show ' + show.name + ' updated');
     } catch (err) {
         Shows.update(show._id, {$set: {ready: true}});
 
