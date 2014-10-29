@@ -75,7 +75,7 @@ updateDownloads = function() {
             if (downloadData) {
                 downloadData.updateDownload(download, _downloader);
             } else {
-                Downloads.remove(download._id);
+                //Downloads.remove(download._id);
                 Episodes.update({downloadId: download._id}, {$set: {status: 'cancelled'}});
                 return false;
             }
