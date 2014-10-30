@@ -12,6 +12,8 @@ html, body {
   font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
   background: #EFEFEF;
   color: @base-color;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4 {
@@ -172,7 +174,7 @@ header.navbar {
 
     .shows-overview {
       clear: both;
-      color: #A5A5A5;
+      color: @overviews-color;
     }
 
     .exists {
@@ -359,12 +361,6 @@ header.navbar {
     top: -10px;
     right: 10px;
   }
-}
-
-.form-control:focus {
-  border-color: #36B0B7;
-  outline: 0px none;
-  box-shadow: 0 0 0;
 }
 
 .label {

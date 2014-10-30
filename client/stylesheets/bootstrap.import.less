@@ -54,16 +54,25 @@
 }
 
 // Modals
+.modal-backdrop {
+  background-color: #FFFFFF;
+}
+
+.modal-backdrop.in {
+  opacity: 0.7;
+}
+
 .modal-dialog {
   min-width: 600px;
   width: auto;
-  max-width: 60%;
+  max-width: 50%;
 }
 
 .modal-content {
   padding: 15px;
   background-color: #FFF;
-  border: 1px solid #E0E0E0;
+  //border: 1px solid #E0E0E0;
+  border: 0;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.125);
   .border-radius(0);
 
@@ -198,6 +207,20 @@
 }
 
 // Forms
+.form-control {
+  //font-weight: 300;
+  color: @light-color;
+  .box-shadow(0 0 0);
+}
+
+.form-control:focus {
+  border-color: #36B0B7;
+  outline: 0px none;
+  color: @base-color;
+  .box-shadow(0 0 0);
+  font-weight: 400;
+}
+
 .form-horizontal .checkbox > label {
   top: -15px;
   margin-left: 5px;
@@ -316,6 +339,16 @@
 }
 
 // Buttons
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active,
+.open > .dropdown-toggle.btn-default {
+  color: darken(@light-color, 15%);
+  background-color: #F5F5F5;
+  border-color: #E0E0E0;
+}
+
 .btn.btn-unstyled,
 .btn.btn-unstyled:focus {
   color: @light-color;
